@@ -13,7 +13,7 @@ response_drivers = supabase_client.table('drivers').select("*").execute()
 drivers = pd.DataFrame(response_drivers.data)
 drivers = drivers.sort_values(by='driverId')
 
-st.table(drivers)
+# st.table(drivers)
 
 
 st.image("https://www.formula1.com/etc/designs/fom-website/images/f1-tv-logo.svg", width=120) #https://www.formula1.com/etc/designs/fom-website/images/f1_logo.svg
