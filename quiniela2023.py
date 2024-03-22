@@ -30,7 +30,7 @@ if usuario_activo is not 'Seleccionar':
     pronosticos = pd.DataFrame(response_pronosticos.data)
     pronosticos = pronosticos.sort_values(by='id')
     pronosticos = pronosticos[pronosticos['Usuario'] == usuario_activo]
-    pronosticos = pronosticos[pronosticos['Carrera No'] == 3]
+    # pronosticos = pronosticos[pronosticos['Carrera No'] == 3]
 
 
     st.dataframe(pronosticos, height=400)
