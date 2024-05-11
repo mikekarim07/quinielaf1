@@ -4,6 +4,8 @@ import os
 from supabase import create_client, Client
 import json
 from datetime import datetime
+from streamlit_gsheets import GSheetsConnection
+
 
 url = 'https://uehrgoqjfbdbkkyumtpw.supabase.co'
 key = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InVlaHJnb3FqZmJkYmtreXVtdHB3Iiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTcwOTA3MDE1MywiZXhwIjoyMDI0NjQ2MTUzfQ.KIIsWOhJx7sPYYP6Wdvdq6S4vPJ8vrSrZbs-vG6kBWw'
@@ -34,3 +36,8 @@ if usuario_activo is not 'Seleccionar':
 
 
     st.dataframe(pronosticos, height=400)
+
+conn =  st.experimental_connection("gsheets", type=GSheetsConnection)
+pronosticos = coon.read(worksheet="Forecast")
+st.dataframe(pronosticos)
+
