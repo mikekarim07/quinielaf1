@@ -45,5 +45,5 @@ if usuario_activo is not "Seleccionar":
     edited_pronosticos = st.data_editor(pronosticos, disabled=["Race No", "Race", "Place", "Fecha", "Player", "Result"], hide_index=False)
 
 
-    st.dataframe(edited_pronosticos)
+    # st.dataframe(edited_pronosticos)
 
