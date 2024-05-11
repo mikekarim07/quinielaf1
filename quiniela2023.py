@@ -42,8 +42,8 @@ pronosticos = conn.read(worksheet="Forecast", usecols=list(range(7)), ttl=5)
 
 if usuario_activo is not "Seleccionar":
     pronosticos = pronosticos[pronosticos['Player'] == usuario_activo]
+    edited_pronosticos = st.data_editor(pronosticos, disabled=["Race No", "Race", "Place", "Fecha", "Player", "Result"], hide_index=False)
 
 
-
-    st.dataframe(pronosticos)
+    st.dataframe(edited_pronosticos)
 
