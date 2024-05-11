@@ -39,5 +39,11 @@ if usuario_activo is not 'Seleccionar':
 
 conn =  st.experimental_connection("gsheets", type=GSheetsConnection)
 pronosticos = conn.read(worksheet="Forecast", usecols=list(range(7)), ttl=5)
-st.dataframe(pronosticos)
+
+if usuario_activo is not "Seleccionar":
+    pronosticos = pronosticos[pronosticos['Player'] == usuario_activo]
+
+
+
+    st.dataframe(pronosticos)
 
