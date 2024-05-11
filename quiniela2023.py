@@ -35,7 +35,7 @@ if usuario_activo is not 'Seleccionar':
     # pronosticos = pronosticos[pronosticos['Carrera No'] == 3]
 
 
-    st.dataframe(pronosticos, height=400)
+    # st.dataframe(pronosticos, height=400)
 
 conn =  st.experimental_connection("gsheets", type=GSheetsConnection)
 pronosticos = conn.read(worksheet="Forecast", usecols=list(range(7)), ttl=5)
