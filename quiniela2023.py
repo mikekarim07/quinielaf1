@@ -38,6 +38,6 @@ if usuario_activo is not 'Seleccionar':
     st.dataframe(pronosticos, height=400)
 
 conn =  st.experimental_connection("gsheets", type=GSheetsConnection)
-pronosticos = conn.read(worksheet="Forecast")
+pronosticos = conn.read(worksheet="Forecast", usecols=list(range(7)), ttl=5)
 st.dataframe(pronosticos)
 
