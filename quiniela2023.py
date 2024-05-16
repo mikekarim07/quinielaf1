@@ -30,14 +30,13 @@ usuario_activo = st.selectbox('Usuario', usuarios)
 conn =  st.connection("gsheets", type=GSheetsConnection)
 pronosticos = conn.read(worksheet="Forecast", usecols=list(range(9)))
 drivers = conn.read(worksheet="Pilotos", usecols=list(range(2)))
-players = conn.read(worksheet="Players", usecols=list(range(3)))
+players = conn.read(worksheet="Players", usecols=list(range(2)))
 
 if usuario_activo is not "Seleccionar":
     clave_jugador = players.loc[players['User'] == usuario_activo, 'user_key'].values[0]
     password = st.text_input("Ingresa tu password")
-    if usuario_activo == password:
-# Imprime la clave del jugador seleccionado
-        st.write("La clave del jugador seleccionado es:", clave_jugador)
+    if clave_jugador == password:
+        st.write("La clave del jugador seleccionado es correcta:")
 
 
 
