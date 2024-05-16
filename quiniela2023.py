@@ -50,7 +50,7 @@ st.dataframe(drivers)
 
 if usuario_activo is not "Seleccionar":
     pronosticos = pronosticos[pronosticos['User'] == usuario_activo]
-    edited_pronosticos = st.data_editor(pronosticos, column_config={"Forecast": st.column_config.SelectboxColumn(label="Pronostico", help="Selecciona de la lista el piloto", options=["Max", "Per"])}, disabled=["Race No", "Race", "Place", "Fecha", "Player", "Result"], hide_index=True)
+    edited_pronosticos = st.data_editor(pronosticos, column_config={"Forecast": st.column_config.SelectboxColumn(label="Pronostico", help="Selecciona de la lista el piloto", options=drivers)}, disabled=["Race No", "Race", "Place", "Fecha", "Player", "Result"], hide_index=True)
 # st.column_config.SelectboxColumn(label="Pronostico", *, width=None, help="Selecciona de la lista el piloto", width="medium", options=["Max", "Per"])
 
     # st.dataframe(edited_pronosticos)
