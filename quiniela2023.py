@@ -54,6 +54,7 @@ hora_utc = datetime.datetime.now(pytz.utc)
 zona_mexico = pytz.timezone('America/Mexico_City')
 hora_mexico = hora_utc.astimezone(zona_mexico)
 
+pronosticos['hora_mexico'] = hora_mexico
 # pronostico_actual = pronosticos[pronosticos['Fecha Limite'] <= hora_mexico]
 
 
