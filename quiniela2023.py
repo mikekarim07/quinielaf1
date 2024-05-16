@@ -6,26 +6,26 @@ import json
 from datetime import datetime
 from streamlit_gsheets import GSheetsConnection
 
-st.set_page_config(page_title="🏎🏎🏎2024 F1 Quiniela🏎🏎🏎", page_icon="🏎", layout="wide")
+st.set_page_config(page_title="🏎🏎🏎2024 F1 Quiniela🏎🏎🏎", layout="wide")
 
 
 
 
 
-url = 'https://uehrgoqjfbdbkkyumtpw.supabase.co'
-key = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InVlaHJnb3FqZmJkYmtreXVtdHB3Iiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTcwOTA3MDE1MywiZXhwIjoyMDI0NjQ2MTUzfQ.KIIsWOhJx7sPYYP6Wdvdq6S4vPJ8vrSrZbs-vG6kBWw'
-supabase_client = create_client(url, key)
+# url = 'https://uehrgoqjfbdbkkyumtpw.supabase.co'
+# key = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InVlaHJnb3FqZmJkYmtreXVtdHB3Iiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTcwOTA3MDE1MywiZXhwIjoyMDI0NjQ2MTUzfQ.KIIsWOhJx7sPYYP6Wdvdq6S4vPJ8vrSrZbs-vG6kBWw'
+# supabase_client = create_client(url, key)
 
-response_drivers = supabase_client.table('drivers').select("*").execute()
-drivers = pd.DataFrame(response_drivers.data)
-drivers = drivers.sort_values(by='driverId')
+# response_drivers = supabase_client.table('drivers').select("*").execute()
+# drivers = pd.DataFrame(response_drivers.data)
+# drivers = drivers.sort_values(by='driverId')
 
-# st.table(drivers)
+# # st.table(drivers)
 
 
 st.image("https://www.formula1.com/etc/designs/fom-website/images/f1-tv-logo.svg", width=120) #https://www.formula1.com/etc/designs/fom-website/images/f1_logo.svg
-st.header('4ta temporada de la quiniela de Formula 1')
-
+st.header('2024 - F1 Fantasy')
+st.subheader('4ta Temporada 🏎')
 tab1, tab2 = st.tabs(["Resultados", "Pronosticos"])
 usuarios = pd.DataFrame({'Usuario': ['Seleccionar', 'Alex', 'Gerry', 'Giorgio', 'Mike']})
 usuario_activo = st.selectbox('Usuario', usuarios)
