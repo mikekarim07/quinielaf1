@@ -14,14 +14,6 @@ st.set_page_config(page_title="🏎🏎🏎2024 F1 Quiniela🏎🏎🏎", page_i
 st.image("https://www.formula1.com/etc/designs/fom-website/images/f1-tv-logo.svg", width=120) #https://www.formula1.com/etc/designs/fom-website/images/f1_logo.svg
 st.header('2024 - F1 Fantasy')
 st.subheader('4ta Temporada 🏎')
-tab1, tab2 = st.tabs(["Resultados", "Pronosticos"])
-usuarios = pd.DataFrame({'Usuario': ['Seleccionar', 'Alex', 'Gerry', 'Giorgio', 'Mike']})
-usuario_activo = st.selectbox('Usuario', usuarios)
-
-conn =  st.connection("gsheets", type=GSheetsConnection)
-pronosticos = conn.read(worksheet="Forecast", usecols=list(range(9)))
-drivers = conn.read(worksheet="Pilotos", usecols=list(range(2)))
-piloto = drivers["Piloto"]
 
 current_time = datetime.now()
 year = '2024'
@@ -31,12 +23,24 @@ hora = '5'
 minuto = '0'
 hora_limite = datetime.strptime(str(year) + '-' + str(month) + '-' + str(day) + ' ' + hora + ':' + minuto, '%Y-%m-%d %H:%M')
 
+tab1, tab2 = st.tabs(["Resultados", "Pronosticos"])
+usuarios = pd.DataFrame({'Usuario': ['Seleccionar', 'Alex', 'Gerry', 'Giorgio', 'Mike']})
+usuario_activo = st.selectbox('Usuario', usuarios)
+
+conn =  st.connection("gsheets", type=GSheetsConnection)
+pronosticos = conn.read(worksheet="Forecast", usecols=list(range(9)))
+drivers = conn.read(worksheet="Pilotos", usecols=list(range(2)))
+players = conn.read(worksheet="Players", usecols=list(range(2)))
+
+if usuario_activo is not "Seleccionar":
+    players = players[players['User'] == usuario_activo]
+    st.dataframe (players)
+# piloto = drivers["Piloto"]
+
+
 if current_time <= hora_limite:
     st.write(current_time)
     pronosticos = pronosticos[((pronosticos['Race No'] == 9) | (pronosticos['Race No'] == 10))]
-
-    # st.dataframe(pronosticos)
-    # st.write(hora_mexico)
 
     if usuario_activo is not "Seleccionar":
         pronosticos = pronosticos[pronosticos['User'] == usuario_activo]
