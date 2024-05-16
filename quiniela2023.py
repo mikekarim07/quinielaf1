@@ -32,14 +32,12 @@ pronosticos = conn.read(worksheet="Forecast", usecols=list(range(9)))
 drivers = conn.read(worksheet="Pilotos", usecols=list(range(2)))
 players = conn.read(worksheet="Players", usecols=list(range(3)))
 
-st.dataframe(players)
-
-# Filtra el DataFrame por el usuario activo y obtén la clave correspondiente
 if usuario_activo is not "Seleccionar":
     clave_jugador = players.loc[players['User'] == usuario_activo, 'user_key'].values[0]
-
+    password = st.text_input("Ingresa tu password")
+    if usuario_activo is password:
 # Imprime la clave del jugador seleccionado
-    st.write("La clave del jugador seleccionado es:", clave_jugador)
+        st.write("La clave del jugador seleccionado es:", clave_jugador)
 
 
 
