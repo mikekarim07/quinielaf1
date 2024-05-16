@@ -45,7 +45,7 @@ usuario_activo = st.selectbox('Usuario', usuarios)
 #     # st.dataframe(pronosticos, height=400)
 
 conn =  st.experimental_connection("gsheets", type=GSheetsConnection)
-pronosticos = conn.read(worksheet="Forecast", usecols=list(range(8)))
+pronosticos = conn.read(worksheet="Forecast", usecols=list(range(9)))
 drivers = conn.read(worksheet="Pilotos", usecols=list(range(2)))
 piloto = drivers["Piloto"]
 
