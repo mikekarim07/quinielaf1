@@ -6,6 +6,11 @@ import json
 from datetime import datetime
 from streamlit_gsheets import GSheetsConnection
 
+st.set_page_config(page_title="2024 F1 Quiniela", page_icon="U+1F3CE", layout="wide")
+
+
+
+
 
 url = 'https://uehrgoqjfbdbkkyumtpw.supabase.co'
 key = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InVlaHJnb3FqZmJkYmtreXVtdHB3Iiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTcwOTA3MDE1MywiZXhwIjoyMDI0NjQ2MTUzfQ.KIIsWOhJx7sPYYP6Wdvdq6S4vPJ8vrSrZbs-vG6kBWw'
