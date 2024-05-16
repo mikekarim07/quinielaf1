@@ -32,7 +32,7 @@ pronosticos = conn.read(worksheet="Forecast", usecols=list(range(9)))
 drivers = conn.read(worksheet="Pilotos", usecols=list(range(2)))
 players = conn.read(worksheet="Players", usecols=list(range(2)))
 
-st.write(players)
+st.dataframe(players)
 
 # Filtra el DataFrame por el usuario activo y obtén la clave correspondiente
 if usuario_activo is not "Seleccionar":
