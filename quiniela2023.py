@@ -6,7 +6,7 @@ import json
 from datetime import datetime
 from streamlit_gsheets import GSheetsConnection
 
-st.set_page_config(page_title="2024 F1 Quiniela", page_icon="U+1F3CE", layout="wide")
+st.set_page_config(page_title="2024 F1 Quiniela", page_icon="🏎", layout="wide")
 
 
 
