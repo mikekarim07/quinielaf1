@@ -47,6 +47,7 @@ pronosticos = conn.read(worksheet="Forecast", usecols=list(range(7)))
 drivers = conn.read(worksheet="Pilotos", usecols=list(range(2)))
 drivers = drivers[["Piloto"]]
 st.dataframe(drivers)
+st.dataframe(pronosticos)
 
 if usuario_activo is not "Seleccionar":
     pronosticos = pronosticos[pronosticos['User'] == usuario_activo]
