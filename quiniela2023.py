@@ -31,20 +31,23 @@ conn =  st.connection("gsheets", type=GSheetsConnection)
 pronosticos = conn.read(worksheet="Forecast", usecols=list(range(9)))
 drivers = conn.read(worksheet="Pilotos", usecols=list(range(2)))
 players = conn.read(worksheet="Players", usecols=list(range(2)))
+clave_jugador = players.loc[players['User'] == usuario_activo, 'user_key'].values[0]
+password = st.text_input("Ingresa tu password")
 
-if usuario_activo is not "Seleccionar":
-    players = players[players['User'] == usuario_activo]
-    st.dataframe (players)
+
+if usuario_activo is not "Seleccionar" and (clave_jugador is password):
+    st.write('voy bien')
+    # st.dataframe (players)
 # piloto = drivers["Piloto"]
 
 
-if current_time <= hora_limite:
-    st.write(current_time)
-    pronosticos = pronosticos[((pronosticos['Race No'] == 9) | (pronosticos['Race No'] == 10))]
+# if current_time <= hora_limite:
+#     st.write(current_time)
+#     pronosticos = pronosticos[((pronosticos['Race No'] == 9) | (pronosticos['Race No'] == 10))]
 
-    if usuario_activo is not "Seleccionar":
-        pronosticos = pronosticos[pronosticos['User'] == usuario_activo]
-        edited_pronosticos = st.data_editor(pronosticos, column_config={"Forecast": st.column_config.SelectboxColumn(options=["Max Verstappen","Sergio Perez","Charles Leclerc","Carlos Sainz","George Russell","Lewis Hamilton","Esteban Ocon","Pierre Gasly","Oscar Piastri","Lando Norris","Valteri Bottas","Zhou Guanyu","Lance Stroll","Fernando Alonso","Kevin Magnusen","Nico Hulkenberg","Daniel Ricciardo","Yuki Tsunoda"])}, disabled=["Race No", "Race", "Place", "Fecha Carrera", "Fecha Limite", "Player", "Result"], hide_index=True)
+#     if usuario_activo is not "Seleccionar":
+#         pronosticos = pronosticos[pronosticos['User'] == usuario_activo]
+#         edited_pronosticos = st.data_editor(pronosticos, column_config={"Forecast": st.column_config.SelectboxColumn(options=["Max Verstappen","Sergio Perez","Charles Leclerc","Carlos Sainz","George Russell","Lewis Hamilton","Esteban Ocon","Pierre Gasly","Oscar Piastri","Lando Norris","Valteri Bottas","Zhou Guanyu","Lance Stroll","Fernando Alonso","Kevin Magnusen","Nico Hulkenberg","Daniel Ricciardo","Yuki Tsunoda"])}, disabled=["Race No", "Race", "Place", "Fecha Carrera", "Fecha Limite", "Player", "Result"], hide_index=True)
 
 
 
