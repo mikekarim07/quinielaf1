@@ -9,7 +9,7 @@ import time
 import pytz
 from streamlit_gsheets import GSheetsConnection
 
-st.set_page_config(page_title="🏎🏎🏎2024 F1 Quiniela🏎🏎🏎", page_icon="🏆", layout="wide")
+st.set_page_config(page_title="2024 F1 Fantasy", page_icon="🏆", layout="wide")
 
 st.image("https://www.formula1.com/etc/designs/fom-website/images/f1-tv-logo.svg", width=120) #https://www.formula1.com/etc/designs/fom-website/images/f1_logo.svg
 st.header('2024 - F1 Fantasy')
