@@ -31,7 +31,9 @@ conn =  st.connection("gsheets", type=GSheetsConnection)
 pronosticos = conn.read(worksheet="Forecast", usecols=list(range(9)))
 drivers = conn.read(worksheet="Pilotos", usecols=list(range(2)))
 players = conn.read(worksheet="Players", usecols=list(range(2)))
+st.dataframe(players)
 clave_jugador = players.loc[players['User'] == usuario_activo, 'user_key'].values[0]
+st.write(clave_jugador)
 password = st.text_input("Ingresa tu password")
 
 
