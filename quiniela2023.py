@@ -53,6 +53,13 @@ hora_utc = datetime.datetime.now(pytz.utc)
 zona_mexico = pytz.timezone('America/Mexico_City')
 hora_mexico = hora_utc.astimezone(zona_mexico)
 
+pronosticos['hora_mexico'] = hora_mexico
+pronosticos['Fecha Limite'] = pd.to_datetime(pronosticos['Fecha Limite'])
+
+    
+    
+    FBL3N_new['SC_1'] = FBL3N_new.apply(sc_121, axis=1)
+pronosticos['tipo'] = 
 st.dataframe(pronosticos)
 st.write(hora_mexico)
 
