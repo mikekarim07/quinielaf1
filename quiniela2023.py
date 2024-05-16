@@ -30,23 +30,25 @@ tab1, tab2 = st.tabs(["Resultados", "Pronosticos"])
 usuarios = pd.DataFrame({'Usuario': ['Seleccionar', 'Alex', 'Gerry', 'Giorgio', 'Mike']})
 usuario_activo = st.selectbox('Usuario', usuarios)
 
-if usuario_activo is not 'Seleccionar':
+# if usuario_activo is not 'Seleccionar':
 
-    # Consulta la base de datos para verificar los orderId existentes
-    response_pronosticos = supabase_client.table('Pronosticos').select("*").execute()
-    pronosticos = pd.DataFrame(response_pronosticos.data)
-    pronosticos = pronosticos.sort_values(by='id')
-    pronosticos = pronosticos[pronosticos['Usuario'] == usuario_activo]
-    # pronosticos = pronosticos[pronosticos['Carrera No'] == 3]
+#     # Consulta la base de datos para verificar los orderId existentes
+#     response_pronosticos = supabase_client.table('Pronosticos').select("*").execute()
+#     pronosticos = pd.DataFrame(response_pronosticos.data)
+#     pronosticos = pronosticos.sort_values(by='id')
+#     pronosticos = pronosticos[pronosticos['Usuario'] == usuario_activo]
+#     # pronosticos = pronosticos[pronosticos['Carrera No'] == 3]
 
 
-    # st.dataframe(pronosticos, height=400)
+#     # st.dataframe(pronosticos, height=400)
 
 conn =  st.experimental_connection("gsheets", type=GSheetsConnection)
 pronosticos = conn.read(worksheet="Forecast", usecols=list(range(7)), ttl=5)
+drivers = conn.read(worksheet="Pilotos", usecols=list(range(5)), ttl=5)
+st.dataframe(drivers)
 
 if usuario_activo is not "Seleccionar":
-    pronosticos = pronosticos[pronosticos['Player'] == usuario_activo]
+    pronosticos = pronosticos[pronosticos['User'] == usuario_activo]
     edited_pronosticos = st.data_editor(pronosticos, column_config={"Forecast": st.column_config.SelectboxColumn(label="Pronostico", help="Selecciona de la lista el piloto", options=["Max", "Per"])}, disabled=["Race No", "Race", "Place", "Fecha", "Player", "Result"], hide_index=True)
 # st.column_config.SelectboxColumn(label="Pronostico", *, width=None, help="Selecciona de la lista el piloto", width="medium", options=["Max", "Per"])
 
