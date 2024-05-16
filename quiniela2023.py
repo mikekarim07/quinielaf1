@@ -4,7 +4,7 @@ import os
 from supabase import create_client, Client
 import json
 from datetime import datetime
-import datetime
+# import datetime
 import time
 import pytz
 from streamlit_gsheets import GSheetsConnection
@@ -18,13 +18,13 @@ tab1, tab2 = st.tabs(["Resultados", "Pronosticos"])
 usuarios = pd.DataFrame({'Usuario': ['Seleccionar', 'Alex', 'Gerry', 'Giorgio', 'Mike']})
 usuario_activo = st.selectbox('Usuario', usuarios)
 
-conn =  st.experimental_connection("gsheets", type=GSheetsConnection)
+conn =  st.connection("gsheets", type=GSheetsConnection)
 pronosticos = conn.read(worksheet="Forecast", usecols=list(range(9)))
 drivers = conn.read(worksheet="Pilotos", usecols=list(range(2)))
 piloto = drivers["Piloto"]
 
 
-hora_utc = datetime.datetime.now(pytz.utc)
+hora_utc = datetime.now(pytz.utc)
 zona_mexico = pytz.timezone('America/Mexico_City')
 hora_mexico = hora_utc.astimezone(zona_mexico)
 
