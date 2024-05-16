@@ -24,9 +24,10 @@ drivers = conn.read(worksheet="Pilotos", usecols=list(range(2)))
 piloto = drivers["Piloto"]
 
 
-hora_utc = datetime.now(pytz.utc, '%Y-%m-%d %H:%M:%S')
+hora_utc = datetime.now(pytz.utc)
 zona_mexico = pytz.timezone('America/Mexico_City')
 hora_mexico = hora_utc.astimezone(zona_mexico)
+hora_mexico = datetime.strptime(hora_mexico, '%Y-%m-%d %H:%M:%S')
 
 fecha_limite = datetime.strptime('2024-05-17 05:00:00', '%Y-%m-%d %H:%M:%S')
 st.write(hora_mexico)
