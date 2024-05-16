@@ -39,7 +39,7 @@ if usuario_activo is not "Seleccionar":
         st.write("La clave del jugador seleccionado es correcta")
         if current_time <= hora_limite:
             pronosticos = pronosticos[((pronosticos['Race No'] == 9) | (pronosticos['Race No'] == 10))]
-            pronosticos =  pronosticos[['User', 'Race', 'Fecha Carrera", "Place", "Forecast"]]
+            pronosticos =  pronosticos[['User', 'Race', 'Fecha Carrera', 'Place', 'Forecast']]
             pronosticos = pronosticos[pronosticos['User'] == usuario_activo]
             edited_pronosticos = st.data_editor(pronosticos, column_config={"Forecast": st.column_config.SelectboxColumn(options=["Max Verstappen","Sergio Perez","Charles Leclerc","Carlos Sainz","George Russell","Lewis Hamilton","Esteban Ocon","Pierre Gasly","Oscar Piastri","Lando Norris","Valteri Bottas","Zhou Guanyu","Lance Stroll","Fernando Alonso","Kevin Magnusen","Nico Hulkenberg","Daniel Ricciardo","Yuki Tsunoda"])}, disabled=["Race", "Place", "Fecha Carrera", "Player"], hide_index=True)
             conn.update(worksheet="Forecast", data=edited_pronosticos)
