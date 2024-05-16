@@ -24,7 +24,7 @@ drivers = conn.read(worksheet="Pilotos", usecols=list(range(2)))
 piloto = drivers["Piloto"]
 
 
-hora_utc = datetime.now(pytz.utc)
+hora_utc = datetime.now(pytz.utc, '%Y-%m-%d %H:%M:%S')
 zona_mexico = pytz.timezone('America/Mexico_City')
 hora_mexico = hora_utc.astimezone(zona_mexico)
 
