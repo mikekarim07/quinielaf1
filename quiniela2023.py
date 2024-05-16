@@ -26,13 +26,15 @@ piloto = drivers["Piloto"]
 hora_utc = datetime.datetime.now(pytz.utc)
 zona_mexico = pytz.timezone('America/Mexico_City')
 hora_mexico = hora_utc.astimezone(zona_mexico)
-fecha_limite = datetime(2024, 5, 17, 5, 0)
 
-# if hora_mexico < fecha_limite:
-#     pronosticos = pronosticos[((pronosticos['Race No'] == 9) | (pronosticos['Race No'] == 10))]
+fecha_limite = datetime.strptime(str(2024) + '-' + str(5) + '-' + str(17) + ' ' + str(5) + ':' + str(0), '%Y-%m-%d %H:%M:%S.%f')
 
-st.dataframe(pronosticos)
-st.write(hora_mexico)
+
+if hora_mexico < fecha_limite:
+    pronosticos = pronosticos[((pronosticos['Race No'] == 9) | (pronosticos['Race No'] == 10))]
+
+    st.dataframe(pronosticos)
+    st.write(hora_mexico)
 
 if usuario_activo is not "Seleccionar":
     pronosticos = pronosticos[pronosticos['User'] == usuario_activo]
