@@ -57,9 +57,12 @@ hora_mexico = hora_utc.astimezone(zona_mexico)
 pronosticos['hora_mexico'] = hora_mexico
 
 def comparar_fechas(fecha1, fecha2):
-    if fecha1 > fecha2:
+    fecha1_dt = datetime.strptime(fecha1, '%Y-%m-%d %H:%M:%S')  # Convertir fecha1 a datetime
+    fecha2_dt = datetime.strptime(fecha2, '%Y-%m-%d %H:%M:%S')  # Convertir fecha2 a datetime
+
+    if fecha1_dt > fecha2_dt:
         return 'Fecha1 es mayor'
-    elif fecha1 < fecha2:
+    elif fecha1_dt < fecha2_dt:
         return 'Fecha2 es mayor'
     else:
         return 'Fechas iguales'
