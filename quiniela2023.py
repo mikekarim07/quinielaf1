@@ -30,7 +30,7 @@ usuario_activo = st.selectbox('Usuario', usuarios)
 conn =  st.connection("gsheets", type=GSheetsConnection)
 pronosticos = conn.read(worksheet="Forecast", usecols=list(range(9)))
 drivers = conn.read(worksheet="Pilotos", usecols=list(range(2)))
-players = conn.read(worksheet="Players", usecols=list(range(2)))
+players = conn.read(worksheet="Players", usecols=list(range(3)))
 
 st.dataframe(players)
 
