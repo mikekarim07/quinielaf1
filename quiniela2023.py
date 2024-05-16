@@ -46,8 +46,8 @@ conn =  st.experimental_connection("gsheets", type=GSheetsConnection)
 pronosticos = conn.read(worksheet="Forecast", usecols=list(range(7)))
 drivers = conn.read(worksheet="Pilotos", usecols=list(range(2)))
 piloto = drivers["Piloto"]
-st.dataframe(piloto)
-st.dataframe(pronosticos)
+hora_actual = datetime.datetime.now()
+st.write(hora_actual)
 
 if usuario_activo is not "Seleccionar":
     pronosticos = pronosticos[pronosticos['User'] == usuario_activo]
