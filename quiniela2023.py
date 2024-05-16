@@ -23,21 +23,20 @@ pronosticos = conn.read(worksheet="Forecast", usecols=list(range(9)))
 drivers = conn.read(worksheet="Pilotos", usecols=list(range(2)))
 piloto = drivers["Piloto"]
 
+current_time = datetime.now()
+year = '2024'
+month = '5'
+day = '17'
+hora = '5'
+minuto = '0'
+hora_limite = datetime.strptime(str(year) + '-' + str(month) + '-' + str(day) + ' ' + hora + ':' + minuto, '%Y-%m-%d %H:%M')
 
-hora_utc = datetime.now(pytz.utc)
-zona_mexico = pytz.timezone('America/Mexico_City')
-hora_mexico = hora_utc.astimezone(zona_mexico)
-hora_mexico = datetime.strptime(hora_mexico, '%Y-%m-%d %H:%M:%S')
+if current_time <= hora_limite:
+    st.write(current_time)
+    pronosticos = pronosticos[((pronosticos['Race No'] == 9) | (pronosticos['Race No'] == 10))]
 
-fecha_limite = datetime.strptime('2024-05-17 05:00:00', '%Y-%m-%d %H:%M:%S')
-st.write(hora_mexico)
-st.write(fecha_limite)
-
-# if hora_mexico < fecha_limite:
-#     pronosticos = pronosticos[((pronosticos['Race No'] == 9) | (pronosticos['Race No'] == 10))]
-
-#     st.dataframe(pronosticos)
-#     st.write(hora_mexico)
+    st.dataframe(pronosticos)
+    st.write(hora_mexico)
 
 # if usuario_activo is not "Seleccionar":
 #     pronosticos = pronosticos[pronosticos['User'] == usuario_activo]
