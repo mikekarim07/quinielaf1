@@ -46,12 +46,12 @@ conn =  st.experimental_connection("gsheets", type=GSheetsConnection)
 pronosticos = conn.read(worksheet="Forecast", usecols=list(range(7)))
 drivers = conn.read(worksheet="Pilotos", usecols=list(range(2)))
 piloto = drivers["Piloto"]
-st.dataframe(drivers)
+st.dataframe(piloto)
 st.dataframe(pronosticos)
 
 if usuario_activo is not "Seleccionar":
     pronosticos = pronosticos[pronosticos['User'] == usuario_activo]
-    edited_pronosticos = st.data_editor(pronosticos, column_config={"Forecast": st.column_config.SelectboxColumn(options=piloto)}, disabled=["Race No", "Race", "Place", "Fecha", "Player", "Result"], hide_index=True)
+    edited_pronosticos = st.data_editor(pronosticos, column_config={"Forecast": st.column_config.SelectboxColumn(options=[piloto])}, disabled=["Race No", "Race", "Place", "Fecha", "Player", "Result"], hide_index=True)
 # st.column_config.SelectboxColumn(label="Pronostico", *, width=None, help="Selecciona de la lista el piloto", width="medium", options=["Max", "Per"])
 
     # st.dataframe(edited_pronosticos)
