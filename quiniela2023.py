@@ -28,9 +28,9 @@ usuarios = pd.DataFrame({'Usuario': ['Seleccionar', 'Alex', 'Gerry', 'Giorgio', 
 usuario_activo = st.selectbox('Usuario', usuarios)
 
 conn =  st.connection("gsheets", type=GSheetsConnection)
-pronosticos = conn.read(worksheet="Forecast", usecols=list(range(9)))
+pronosticos = conn.read(worksheet="Forecast", usecols=list(range(6)))
 drivers = conn.read(worksheet="Pilotos", usecols=list(range(2)))
-players = conn.read(worksheet="Players", usecols=list(range(3)))
+players = conn.read(worksheet="Players", usecols=list(range(2)))
 
 if usuario_activo is not "Seleccionar":
     clave_jugador = players.loc[players['User'] == usuario_activo, 'user_key'].values[0]
@@ -39,43 +39,14 @@ if usuario_activo is not "Seleccionar":
         st.write("La clave del jugador seleccionado es correcta")
         if current_time <= hora_limite:
             pronosticos = pronosticos[((pronosticos['Race No'] == 9) | (pronosticos['Race No'] == 10))]
+            pronosticos =  pronosticos[['User', 'Race', 'Fecha Carrera", "Place", "Forecast"]]
             pronosticos = pronosticos[pronosticos['User'] == usuario_activo]
-            edited_pronosticos = st.data_editor(pronosticos, column_config={"Forecast": st.column_config.SelectboxColumn(options=["Max Verstappen","Sergio Perez","Charles Leclerc","Carlos Sainz","George Russell","Lewis Hamilton","Esteban Ocon","Pierre Gasly","Oscar Piastri","Lando Norris","Valteri Bottas","Zhou Guanyu","Lance Stroll","Fernando Alonso","Kevin Magnusen","Nico Hulkenberg","Daniel Ricciardo","Yuki Tsunoda"])}, disabled=["Race No", "Race", "Place", "Fecha Carrera", "Fecha Limite", "Player", "Result"], hide_index=True)
+            edited_pronosticos = st.data_editor(pronosticos, column_config={"Forecast": st.column_config.SelectboxColumn(options=["Max Verstappen","Sergio Perez","Charles Leclerc","Carlos Sainz","George Russell","Lewis Hamilton","Esteban Ocon","Pierre Gasly","Oscar Piastri","Lando Norris","Valteri Bottas","Zhou Guanyu","Lance Stroll","Fernando Alonso","Kevin Magnusen","Nico Hulkenberg","Daniel Ricciardo","Yuki Tsunoda"])}, disabled=["Race", "Place", "Fecha Carrera", "Player"], hide_index=True)
             conn.update(worksheet="Forecast", data=edited_pronosticos)
 
 
 
 
-
-# players = conn.read(worksheet="Players", usecols=list(range(2)))
-# st.dataframe(players)
-# clave_jugador = players.loc[players['User'] == usuario_activo, 'user_key'].values[0]
-# st.write(clave_jugador)
-# password = st.text_input("Ingresa tu password")
-
-
-# if usuario_activo is not "Seleccionar" and (clave_jugador is password):
-#     st.write('voy bien')
-#     # st.dataframe (players)
-# # piloto = drivers["Piloto"]
-
-
-# # if current_time <= hora_limite:
-# #     st.write(current_time)
-# #     pronosticos = pronosticos[((pronosticos['Race No'] == 9) | (pronosticos['Race No'] == 10))]
-
-# #     if usuario_activo is not "Seleccionar":
-# #         pronosticos = pronosticos[pronosticos['User'] == usuario_activo]
-# #         edited_pronosticos = st.data_editor(pronosticos, column_config={"Forecast": st.column_config.SelectboxColumn(options=["Max Verstappen","Sergio Perez","Charles Leclerc","Carlos Sainz","George Russell","Lewis Hamilton","Esteban Ocon","Pierre Gasly","Oscar Piastri","Lando Norris","Valteri Bottas","Zhou Guanyu","Lance Stroll","Fernando Alonso","Kevin Magnusen","Nico Hulkenberg","Daniel Ricciardo","Yuki Tsunoda"])}, disabled=["Race No", "Race", "Place", "Fecha Carrera", "Fecha Limite", "Player", "Result"], hide_index=True)
-
-
-
-
-
-
-# # st.column_config.SelectboxColumn(label="Pronostico", *, width=None, help="Selecciona de la lista el piloto", width="medium", options=["Max", "Per"])
-
-# # st.dataframe(edited_pronosticos)
 
 
 
