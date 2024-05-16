@@ -35,7 +35,7 @@ players = conn.read(worksheet="Players", usecols=list(range(2)))
 if usuario_activo is not "Seleccionar":
     clave_jugador = players.loc[players['User'] == usuario_activo, 'user_key'].values[0]
     password = st.text_input("Ingresa tu password")
-    if clave_jugador == password:
+    if clave_jugador is password:
         st.write("La clave del jugador seleccionado es correcta:")
 
 
