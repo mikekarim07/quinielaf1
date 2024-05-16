@@ -5,6 +5,7 @@ from supabase import create_client, Client
 import json
 from datetime import datetime
 import datetime
+import pytz
 from streamlit_gsheets import GSheetsConnection
 
 st.set_page_config(page_title="🏎🏎🏎2024 F1 Quiniela🏎🏎🏎", page_icon="🏆", layout="wide")
@@ -47,8 +48,12 @@ conn =  st.experimental_connection("gsheets", type=GSheetsConnection)
 pronosticos = conn.read(worksheet="Forecast", usecols=list(range(7)))
 drivers = conn.read(worksheet="Pilotos", usecols=list(range(2)))
 piloto = drivers["Piloto"]
-hora_actual = datetime.datetime.now()
-st.write(hora_actual)
+
+hora_utc = datetime.datetime.now(pytz.utc)
+zona_mexico = pytz.timezone('America/Mexico_City')
+hora_mexico = hora_utc.astimezone(zona_mexico)
+
+st.write(hora_mexico)
 
 if usuario_activo is not "Seleccionar":
     pronosticos = pronosticos[pronosticos['User'] == usuario_activo]
