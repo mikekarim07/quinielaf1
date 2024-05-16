@@ -53,6 +53,7 @@ hora_utc = datetime.datetime.now(pytz.utc)
 zona_mexico = pytz.timezone('America/Mexico_City')
 hora_mexico = hora_utc.astimezone(zona_mexico)
 
+st.dataframe(pronosticos)
 st.write(hora_mexico)
 
 if usuario_activo is not "Seleccionar":
