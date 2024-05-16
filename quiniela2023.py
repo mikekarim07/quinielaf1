@@ -44,8 +44,8 @@ usuario_activo = st.selectbox('Usuario', usuarios)
 
 conn =  st.experimental_connection("gsheets", type=GSheetsConnection)
 pronosticos = conn.read(worksheet="Forecast", usecols=list(range(7)))
-drivers = conn.read(worksheet="Pilotos")
-# drivers = 
+drivers = conn.read(worksheet="Pilotos", usecols=list(range(2)))
+drivers = [drivers["Piloto"]]
 st.dataframe(drivers)
 
 if usuario_activo is not "Seleccionar":
