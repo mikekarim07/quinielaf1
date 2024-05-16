@@ -28,7 +28,7 @@ hora_utc = datetime.datetime.now(pytz.utc)
 zona_mexico = pytz.timezone('America/Mexico_City')
 hora_mexico = hora_utc.astimezone(zona_mexico)
 
-fecha_limite = datetime.strptime(str(2024) + '-' + str(5) + '-' + str(17) + ' ' + str(5) + ':' + str(0), '%Y-%m-%d %H:%M:%S.%f')
+fecha_limite = datetime.strptime('2024-05-17 05:00:00', '%Y-%m-%d %H:%M:%S')
 
 
 if hora_mexico < fecha_limite:
