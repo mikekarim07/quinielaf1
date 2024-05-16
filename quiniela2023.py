@@ -53,11 +53,14 @@ hora_utc = datetime.datetime.now(pytz.utc)
 zona_mexico = pytz.timezone('America/Mexico_City')
 hora_mexico = hora_utc.astimezone(zona_mexico)
 
-pronosticos['hora_mexico'] = hora_mexico
 pronosticos['Fecha Limite'] = pd.to_datetime(pronosticos['Fecha Limite'])
+pronostico_actual = pronosticos[pronosticos['Fecha Limite'] <= hora_mexico]
 
 
-st.dataframe(pronosticos)
+
+
+
+st.dataframe(pronostico_actual)
 st.write(hora_mexico)
 
 if usuario_activo is not "Seleccionar":
