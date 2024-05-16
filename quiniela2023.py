@@ -55,6 +55,23 @@ zona_mexico = pytz.timezone('America/Mexico_City')
 hora_mexico = hora_utc.astimezone(zona_mexico)
 
 pronosticos['hora_mexico'] = hora_mexico
+
+def comparar_fechas(fecha1, fecha2):
+    if fecha1 > fecha2:
+        return 'Fecha1 es mayor'
+    elif fecha1 < fecha2:
+        return 'Fecha2 es mayor'
+    else:
+        return 'Fechas iguales'
+
+pronosticos['Comparacion'] = pronosticos.apply(lambda row: comparar_fechas(row['Fecha Limite'], row['hora_mexico']), axis=1)
+
+
+
+
+
+
+
 # pronostico_actual = pronosticos[pronosticos['Fecha Limite'] <= hora_mexico]
 
 
