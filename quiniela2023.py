@@ -31,7 +31,8 @@ conn =  st.connection("gsheets", type=GSheetsConnection)
 pronosticos = conn.read(worksheet="Forecast", usecols=list(range(6)), ttl=5)
 drivers = conn.read(worksheet="Pilotos", usecols=list(range(2)), ttl=5)
 players = conn.read(worksheet="Players", usecols=list(range(3)), ttl=5)
-users = players['User']
+
+st.dataframe(Players)
 
 if usuario_activo in users:
     st.write('Ok')
