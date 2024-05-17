@@ -28,10 +28,9 @@ usuarios = pd.DataFrame({'Usuario': ['Seleccionar', 'Alex', 'Gerry', 'Giorgio', 
 usuario_activo = st.selectbox('Usuario', usuarios)
 
 conn =  st.connection("gsheets", type=GSheetsConnection)
-pronosticos = conn.read(worksheet="Forecast", usecols=list(range(6)), ttl=5)
+pronosticos = conn.read(worksheet="9y10", usecols=list(range(5)), ttl=5)
 drivers = conn.read(worksheet="Pilotos", usecols=list(range(2)), ttl=5)
 users = conn.read(worksheet="Players", usecols=list(range(3)), ttl=5)
-
 
 if usuario_activo is not "Seleccionar":
     clave_jugador = users.loc[users['user'] == usuario_activo, 'user_key'].values[0]
@@ -49,8 +48,6 @@ if usuario_activo is not "Seleccionar":
     if password == clave_jugador:
         st.write("La clave del jugador seleccionado es correcta")
         if current_time <= hora_limite:
-            pronosticos = pronosticos[((pronosticos['Race No'] == 9) | (pronosticos['Race No'] == 10))]
-            pronosticos =  pronosticos[['User', 'Race', 'Fecha Carrera', 'Place', 'Forecast']]
             pronosticos = pronosticos[pronosticos['User'] == usuario_activo]
             edited_pronosticos = st.data_editor(pronosticos, column_config={"Forecast": st.column_config.SelectboxColumn(options=["Max Verstappen","Sergio Perez","Charles Leclerc","Carlos Sainz","George Russell","Lewis Hamilton","Esteban Ocon","Pierre Gasly","Oscar Piastri","Lando Norris","Valteri Bottas","Zhou Guanyu","Lance Stroll","Fernando Alonso","Kevin Magnusen","Nico Hulkenberg","Daniel Ricciardo","Yuki Tsunoda"])}, disabled=["Race", "Place", "Fecha Carrera", "Player"], hide_index=True)
             conn.update(worksheet="Forecast", data=edited_pronosticos)
