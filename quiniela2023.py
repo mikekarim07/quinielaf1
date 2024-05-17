@@ -101,23 +101,23 @@ usuario_activo = st.selectbox('Usuario', usuarios)
 
 
 
-# # # url = 'https://uehrgoqjfbdbkkyumtpw.supabase.co'
-# # # key = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InVlaHJnb3FqZmJkYmtreXVtdHB3Iiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTcwOTA3MDE1MywiZXhwIjoyMDI0NjQ2MTUzfQ.KIIsWOhJx7sPYYP6Wdvdq6S4vPJ8vrSrZbs-vG6kBWw'
-# # # supabase_client = create_client(url, key)
+url = 'https://uehrgoqjfbdbkkyumtpw.supabase.co'
+key = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InVlaHJnb3FqZmJkYmtreXVtdHB3Iiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTcwOTA3MDE1MywiZXhwIjoyMDI0NjQ2MTUzfQ.KIIsWOhJx7sPYYP6Wdvdq6S4vPJ8vrSrZbs-vG6kBWw'
+supabase_client = create_client(url, key)
 
-# # # response_drivers = supabase_client.table('drivers').select("*").execute()
-# # # drivers = pd.DataFrame(response_drivers.data)
-# # # drivers = drivers.sort_values(by='driverId')
+response_drivers = supabase_client.table('drivers').select("*").execute()
+drivers = pd.DataFrame(response_drivers.data)
+drivers = drivers.sort_values(by='driverId')
 
-# # # # st.table(drivers)
-# # # if usuario_activo is not 'Seleccionar':
+st.table(drivers)
+# if usuario_activo is not 'Seleccionar':
 
-# # #     # Consulta la base de datos para verificar los orderId existentes
-# # #     response_pronosticos = supabase_client.table('Pronosticos').select("*").execute()
-# # #     pronosticos = pd.DataFrame(response_pronosticos.data)
-# # #     pronosticos = pronosticos.sort_values(by='id')
-# # #     pronosticos = pronosticos[pronosticos['Usuario'] == usuario_activo]
-# # #     # pronosticos = pronosticos[pronosticos['Carrera No'] == 3]
+#     # Consulta la base de datos para verificar los orderId existentes
+#     response_pronosticos = supabase_client.table('Pronosticos').select("*").execute()
+#     pronosticos = pd.DataFrame(response_pronosticos.data)
+#     pronosticos = pronosticos.sort_values(by='id')
+#     pronosticos = pronosticos[pronosticos['Usuario'] == usuario_activo]
+#     # pronosticos = pronosticos[pronosticos['Carrera No'] == 3]
 
 
-# # #     # st.dataframe(pronosticos, height=400)
+#     # st.dataframe(pronosticos, height=400)
