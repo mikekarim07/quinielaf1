@@ -27,30 +27,30 @@ tab1, tab2 = st.tabs(["Resultados", "Pronosticos"])
 usuarios = pd.DataFrame({'Usuario': ['Seleccionar', 'Alex', 'Gerry', 'Giorgio', 'Mike']})
 usuario_activo = st.selectbox('Usuario', usuarios)
 
-conn =  st.connection("gsheets", type=GSheetsConnection)
-pronosticos = conn.read(worksheet="9y10", usecols=list(range(5)), ttl=5)
-drivers = conn.read(worksheet="Pilotos", usecols=list(range(3)), ttl=5)
-users = conn.read(worksheet="Players", usecols=list(range(3)), ttl=5)
+# conn =  st.connection("gsheets", type=GSheetsConnection)
+# pronosticos = conn.read(worksheet="9y10", usecols=list(range(5)), ttl=5)
+# drivers = conn.read(worksheet="Pilotos", usecols=list(range(3)), ttl=5)
+# users = conn.read(worksheet="Players", usecols=list(range(3)), ttl=5)
 
-if usuario_activo is not "Seleccionar":
-    clave_jugador = users.loc[users['User'] == usuario_activo, 'user_key'].values[0]
-    # st.write(clave_jugador)
+# if usuario_activo is not "Seleccionar":
+#     clave_jugador = users.loc[users['User'] == usuario_activo, 'user_key'].values[0]
+#     # st.write(clave_jugador)
     
-    # if pd.isna(clave_jugador):
-    #     st.caption("Registra tu password para ingresar tus pronosticos")
-    #     users = users[users['user'] == usuario_activo]
-    #     st.dataframe(users)
-    #     # players =  players[['user_key']]
-    #     # edited_players = st.data_editor(players, column_config={"user_key": st.column_config.TextColumn("Password", max_chars=10,)}, hide_index=True,)
-    #     # conn.update(worksheet="Players", data=edited_players)
+#     # if pd.isna(clave_jugador):
+#     #     st.caption("Registra tu password para ingresar tus pronosticos")
+#     #     users = users[users['user'] == usuario_activo]
+#     #     st.dataframe(users)
+#     #     # players =  players[['user_key']]
+#     #     # edited_players = st.data_editor(players, column_config={"user_key": st.column_config.TextColumn("Password", max_chars=10,)}, hide_index=True,)
+#     #     # conn.update(worksheet="Players", data=edited_players)
         
-    password = st.text_input("Ingresa tu password", type="password")
-    if password == clave_jugador:
-        st.write("La clave del jugador seleccionado es correcta")
-        if current_time <= hora_limite:
-            pronosticos = pronosticos[pronosticos['User'] == usuario_activo]
-            edited_pronosticos = st.data_editor(pronosticos, column_config={"Forecast": st.column_config.SelectboxColumn(options=["Max Verstappen","Sergio Perez","Charles Leclerc","Carlos Sainz","George Russell","Lewis Hamilton","Esteban Ocon","Pierre Gasly","Oscar Piastri","Lando Norris","Valteri Bottas","Zhou Guanyu","Lance Stroll","Fernando Alonso","Kevin Magnusen","Nico Hulkenberg","Daniel Ricciardo","Yuki Tsunoda"])}, disabled=["Race", "Place", "Fecha Carrera", "User"], hide_index=True)
-            conn.update(worksheet="Forecast", data=edited_pronosticos)
+#     password = st.text_input("Ingresa tu password", type="password")
+#     if password == clave_jugador:
+#         st.write("La clave del jugador seleccionado es correcta")
+#         if current_time <= hora_limite:
+#             pronosticos = pronosticos[pronosticos['User'] == usuario_activo]
+#             edited_pronosticos = st.data_editor(pronosticos, column_config={"Forecast": st.column_config.SelectboxColumn(options=["Max Verstappen","Sergio Perez","Charles Leclerc","Carlos Sainz","George Russell","Lewis Hamilton","Esteban Ocon","Pierre Gasly","Oscar Piastri","Lando Norris","Valteri Bottas","Zhou Guanyu","Lance Stroll","Fernando Alonso","Kevin Magnusen","Nico Hulkenberg","Daniel Ricciardo","Yuki Tsunoda"])}, disabled=["Race", "Place", "Fecha Carrera", "User"], hide_index=True)
+#             conn.update(worksheet="Forecast", data=edited_pronosticos)
 
 
 
@@ -58,27 +58,27 @@ if usuario_activo is not "Seleccionar":
 
 
 
-# st.dataframe(players)
+# # st.dataframe(players)
 
-# if usuario_activo in players:
-#     st.write('Ok')
-# else:
-#     st.caption('Registra tu usuario y contraseña')
-#     with st.form(key="alta_usuario"):
-#         usuario = usuario_activo
-#         password = st.text_input("Ingresa tu contraseña")
-#         submit_button = st.form_submit_button(label="Registra tu Password")
-#         if submit_button:
-#             user_data = pd.DataFrame(
-#                 [
-#                     {
-#                         "User": usuario,
-#                         "Password": password,
-#                     }
-#                 ]
-#             )
-#             updated_players = pd.concat([players, user_data], ignore_index=True)
-#             conn.update(worksheet="Players", data=updated_players)
+# # if usuario_activo in players:
+# #     st.write('Ok')
+# # else:
+# #     st.caption('Registra tu usuario y contraseña')
+# #     with st.form(key="alta_usuario"):
+# #         usuario = usuario_activo
+# #         password = st.text_input("Ingresa tu contraseña")
+# #         submit_button = st.form_submit_button(label="Registra tu Password")
+# #         if submit_button:
+# #             user_data = pd.DataFrame(
+# #                 [
+# #                     {
+# #                         "User": usuario,
+# #                         "Password": password,
+# #                     }
+# #                 ]
+# #             )
+# #             updated_players = pd.concat([players, user_data], ignore_index=True)
+# #             conn.update(worksheet="Players", data=updated_players)
         
 
 
