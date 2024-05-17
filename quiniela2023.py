@@ -34,11 +34,12 @@ players = conn.read(worksheet="Players", usecols=list(range(3)))
 
 if usuario_activo is not "Seleccionar":
     clave_jugador = players.loc[players['User'] == usuario_activo, 'user_key'].values[0]
-    st.write(clave_jugador)
+    
     if pd.isna(clave_jugador):
         st.caption("Registra tu password")
-        
-    
+        players = players[players['User'] == usuario_activo]
+        edited_players = st.data_editor(players, column_config={"Forecast": st.column_config.TextColumn()
+
     password = st.text_input("Ingresa tu password", type="password")
     if password == clave_jugador:
         st.write("La clave del jugador seleccionado es correcta")
