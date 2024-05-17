@@ -33,7 +33,7 @@ drivers = conn.read(worksheet="Pilotos", usecols=list(range(2)), ttl=5)
 players = conn.read(worksheet="Players", usecols=list(range(3)), ttl=5)
 users = players['User']
 
-if usuario_activo in users['User'].values:
+if usuario_activo in users:
     st.write('Ok')
 else:
     st.write('No')
