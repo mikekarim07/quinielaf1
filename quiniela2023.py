@@ -51,7 +51,7 @@ else:
                 ]
             )
             updated_players = pd.concat([players, user_data], ignore_index=True)
-            conn.update(worksheet="Players", data=updated_platers)
+            conn.update(worksheet="Players", data=updated_players)
         
 
 
