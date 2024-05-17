@@ -34,7 +34,7 @@ players = conn.read(worksheet="Players", usecols=list(range(3)), ttl=5)
 
 st.dataframe(players)
 
-if usuario_activo in users:
+if usuario_activo in players:
     st.write('Ok')
 else:
     st.caption('Registra tu usuario y contraseña')
