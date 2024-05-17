@@ -37,12 +37,13 @@ if usuario_activo is not "Seleccionar":
     clave_jugador = users.loc[users['user'] == usuario_activo, 'user_key'].values[0]
     st.write(clave_jugador)
     
-    # if pd.isna(clave_jugador):
-    #     st.caption("Registra tu password para ingresar tus pronosticos")
-    #     players = players[players['User'] == usuario_activo]
-    #     # players =  players[['user_key']]
-    #     # edited_players = st.data_editor(players, column_config={"user_key": st.column_config.TextColumn("Password", max_chars=10,)}, hide_index=True,)
-    #     # conn.update(worksheet="Players", data=edited_players)
+    if pd.isna(clave_jugador):
+        st.caption("Registra tu password para ingresar tus pronosticos")
+        users = users[users['user'] == usuario_activo]
+        st.dataframe(users)
+        # players =  players[['user_key']]
+        # edited_players = st.data_editor(players, column_config={"user_key": st.column_config.TextColumn("Password", max_chars=10,)}, hide_index=True,)
+        # conn.update(worksheet="Players", data=edited_players)
         
     # password = st.text_input("Ingresa tu password", type="password")
     # if password == clave_jugador:
