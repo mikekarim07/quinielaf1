@@ -38,7 +38,7 @@ if usuario_activo is not "Seleccionar":
     if pd.isna(clave_jugador):
         st.caption("Registra tu password")
         players = players[players['User'] == usuario_activo]
-        edited_players = st.data_editor(players, column_config={"Forecast": st.column_config.TextColumn(disabled=["User"], hide_index=True)})
+        edited_players = st.data_editor(players, column_config={"user_key": st.column_config.TextColumn(disabled=["User"], hide_index=True)})
 
     password = st.text_input("Ingresa tu password", type="password")
     if password == clave_jugador:
