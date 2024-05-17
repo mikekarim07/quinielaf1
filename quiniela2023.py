@@ -28,7 +28,7 @@ usuarios = pd.DataFrame({'Usuario': ['Seleccionar', 'Alex', 'Gerry', 'Giorgio', 
 usuario_activo = st.selectbox('Usuario', usuarios)
 
 conn =  st.connection("gsheets", type=GSheetsConnection)
-pronosticos = conn.read(worksheet="Forecast", usecols=list(range(7)), ttl=5)
+pronosticos = conn.read(worksheet="Forecast", usecols=list(range(6)), ttl=5)
 drivers = conn.read(worksheet="Pilotos", usecols=list(range(2)), ttl=5)
 players = conn.read(worksheet="Players", usecols=list(range(3)), ttl=5)
 users = players['User']
