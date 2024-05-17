@@ -29,7 +29,7 @@ usuario_activo = st.selectbox('Usuario', usuarios)
 
 conn =  st.connection("gsheets", type=GSheetsConnection)
 pronosticos = conn.read(worksheet="9y10", usecols=list(range(5)), ttl=5)
-drivers = conn.read(worksheet="Pilotos", usecols=list(range(2)), ttl=5)
+drivers = conn.read(worksheet="Pilotos", usecols=list(range(3)), ttl=5)
 users = conn.read(worksheet="Players", usecols=list(range(3)), ttl=5)
 
 if usuario_activo is not "Seleccionar":
