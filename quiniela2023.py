@@ -32,27 +32,34 @@ pronosticos = conn.read(worksheet="Forecast", usecols=list(range(6)), ttl=5)
 drivers = conn.read(worksheet="Pilotos", usecols=list(range(2)), ttl=5)
 players = conn.read(worksheet="Players", usecols=list(range(3)), ttl=5)
 users = players['User']
-st.write(users)
 
-if usuario_activo is not "Seleccionar":
-    clave_jugador = players.loc[players['User'] == usuario_activo, 'user_key'].values[0]
+if usuario_activo in users['User'].values:
+    st.write('Ok')
+else:
+    st.write('No')
+
+
+# st.write(users)
+
+# if usuario_activo is not "Seleccionar":
+#     clave_jugador = players.loc[players['User'] == usuario_activo, 'user_key'].values[0]
     
-    if pd.isna(clave_jugador):
-        st.caption("Registra tu password para ingresar tus pronosticos")
-        players = players[players['User'] == usuario_activo]
-        # players =  players[['user_key']]
-        # edited_players = st.data_editor(players, column_config={"user_key": st.column_config.TextColumn("Password", max_chars=10,)}, hide_index=True,)
-        # conn.update(worksheet="Players", data=edited_players)
+#     if pd.isna(clave_jugador):
+#         st.caption("Registra tu password para ingresar tus pronosticos")
+#         players = players[players['User'] == usuario_activo]
+#         # players =  players[['user_key']]
+#         # edited_players = st.data_editor(players, column_config={"user_key": st.column_config.TextColumn("Password", max_chars=10,)}, hide_index=True,)
+#         # conn.update(worksheet="Players", data=edited_players)
         
-    password = st.text_input("Ingresa tu password", type="password")
-    if password == clave_jugador:
-        st.write("La clave del jugador seleccionado es correcta")
-        if current_time <= hora_limite:
-            pronosticos = pronosticos[((pronosticos['Race No'] == 9) | (pronosticos['Race No'] == 10))]
-            pronosticos =  pronosticos[['User', 'Race', 'Fecha Carrera', 'Place', 'Forecast']]
-            pronosticos = pronosticos[pronosticos['User'] == usuario_activo]
-            edited_pronosticos = st.data_editor(pronosticos, column_config={"Forecast": st.column_config.SelectboxColumn(options=["Max Verstappen","Sergio Perez","Charles Leclerc","Carlos Sainz","George Russell","Lewis Hamilton","Esteban Ocon","Pierre Gasly","Oscar Piastri","Lando Norris","Valteri Bottas","Zhou Guanyu","Lance Stroll","Fernando Alonso","Kevin Magnusen","Nico Hulkenberg","Daniel Ricciardo","Yuki Tsunoda"])}, disabled=["Race", "Place", "Fecha Carrera", "Player"], hide_index=True)
-            conn.update(worksheet="Forecast", data=edited_pronosticos)
+#     password = st.text_input("Ingresa tu password", type="password")
+#     if password == clave_jugador:
+#         st.write("La clave del jugador seleccionado es correcta")
+#         if current_time <= hora_limite:
+#             pronosticos = pronosticos[((pronosticos['Race No'] == 9) | (pronosticos['Race No'] == 10))]
+#             pronosticos =  pronosticos[['User', 'Race', 'Fecha Carrera', 'Place', 'Forecast']]
+#             pronosticos = pronosticos[pronosticos['User'] == usuario_activo]
+#             edited_pronosticos = st.data_editor(pronosticos, column_config={"Forecast": st.column_config.SelectboxColumn(options=["Max Verstappen","Sergio Perez","Charles Leclerc","Carlos Sainz","George Russell","Lewis Hamilton","Esteban Ocon","Pierre Gasly","Oscar Piastri","Lando Norris","Valteri Bottas","Zhou Guanyu","Lance Stroll","Fernando Alonso","Kevin Magnusen","Nico Hulkenberg","Daniel Ricciardo","Yuki Tsunoda"])}, disabled=["Race", "Place", "Fecha Carrera", "Player"], hide_index=True)
+#             conn.update(worksheet="Forecast", data=edited_pronosticos)
 
 
 
@@ -64,23 +71,23 @@ if usuario_activo is not "Seleccionar":
 
 
 
-# # url = 'https://uehrgoqjfbdbkkyumtpw.supabase.co'
-# # key = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InVlaHJnb3FqZmJkYmtreXVtdHB3Iiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTcwOTA3MDE1MywiZXhwIjoyMDI0NjQ2MTUzfQ.KIIsWOhJx7sPYYP6Wdvdq6S4vPJ8vrSrZbs-vG6kBWw'
-# # supabase_client = create_client(url, key)
+# # # url = 'https://uehrgoqjfbdbkkyumtpw.supabase.co'
+# # # key = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InVlaHJnb3FqZmJkYmtreXVtdHB3Iiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTcwOTA3MDE1MywiZXhwIjoyMDI0NjQ2MTUzfQ.KIIsWOhJx7sPYYP6Wdvdq6S4vPJ8vrSrZbs-vG6kBWw'
+# # # supabase_client = create_client(url, key)
 
-# # response_drivers = supabase_client.table('drivers').select("*").execute()
-# # drivers = pd.DataFrame(response_drivers.data)
-# # drivers = drivers.sort_values(by='driverId')
+# # # response_drivers = supabase_client.table('drivers').select("*").execute()
+# # # drivers = pd.DataFrame(response_drivers.data)
+# # # drivers = drivers.sort_values(by='driverId')
 
-# # # st.table(drivers)
-# # if usuario_activo is not 'Seleccionar':
+# # # # st.table(drivers)
+# # # if usuario_activo is not 'Seleccionar':
 
-# #     # Consulta la base de datos para verificar los orderId existentes
-# #     response_pronosticos = supabase_client.table('Pronosticos').select("*").execute()
-# #     pronosticos = pd.DataFrame(response_pronosticos.data)
-# #     pronosticos = pronosticos.sort_values(by='id')
-# #     pronosticos = pronosticos[pronosticos['Usuario'] == usuario_activo]
-# #     # pronosticos = pronosticos[pronosticos['Carrera No'] == 3]
+# # #     # Consulta la base de datos para verificar los orderId existentes
+# # #     response_pronosticos = supabase_client.table('Pronosticos').select("*").execute()
+# # #     pronosticos = pd.DataFrame(response_pronosticos.data)
+# # #     pronosticos = pronosticos.sort_values(by='id')
+# # #     pronosticos = pronosticos[pronosticos['Usuario'] == usuario_activo]
+# # #     # pronosticos = pronosticos[pronosticos['Carrera No'] == 3]
 
 
-# #     # st.dataframe(pronosticos, height=400)
+# # #     # st.dataframe(pronosticos, height=400)
