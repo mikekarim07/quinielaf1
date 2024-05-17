@@ -40,7 +40,7 @@ else:
     with st.form(key="alta_usuario"):
         usuario = usuario_activo
         password = st.text_input("Ingresa tu contraseña")
-        submit_button = st.form_submit_button(label="Password")
+        submit_button = st.form_submit_button(label="Registra tu Password")
         
 
 
