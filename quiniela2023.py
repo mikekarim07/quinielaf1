@@ -41,6 +41,17 @@ else:
         usuario = usuario_activo
         password = st.text_input("Ingresa tu contraseña")
         submit_button = st.form_submit_button(label="Registra tu Password")
+        if submit_button:
+            user_data = pd.Dataframe(
+                [
+                    {
+                        "User": usuario,
+                        "Password": password,
+                    }
+                ]
+            )
+            updated_players = pd.concat([players, user_data], ignore_index=True)
+            conn.update(worksheet="Players", data=updated_platers)
         
 
 
