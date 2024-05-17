@@ -35,7 +35,7 @@ players = conn.read(worksheet="Players", usecols=list(range(3)))
 if usuario_activo is not "Seleccionar":
     clave_jugador = players.loc[players['User'] == usuario_activo, 'user_key'].values[0]
     st.write(clave_jugador)
-    if (len(clave_jugador) > 0):
+    if clave_jugador isnan:
         st.caption("Registra tu password")
         
     
