@@ -36,7 +36,12 @@ users = players['User']
 if usuario_activo in users:
     st.write('Ok')
 else:
-    st.write('No')
+    st.caption('Registra tu usuario y contraseña')
+    with st.form(key="alta_usuario")
+        usuario = usuario_activo
+        password = st.text_input("Ingresa tu contraseña")
+        submit_button = st.form_submit_button(label="Password")
+
 
 
 # st.write(users)
