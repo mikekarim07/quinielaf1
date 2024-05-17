@@ -42,7 +42,7 @@ else:
         password = st.text_input("Ingresa tu contraseña")
         submit_button = st.form_submit_button(label="Registra tu Password")
         if submit_button:
-            user_data = pd.Dataframe(
+            user_data = pd.DataFrame(
                 [
                     {
                         "User": usuario,
