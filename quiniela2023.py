@@ -34,7 +34,7 @@ players = conn.read(worksheet="Players", usecols=list(range(3)), ttl=5)
 
 
 if usuario_activo is not "Seleccionar":
-    clave_jugador = players.loc[players['User'] == usuario_activo, 'user_key'].values[0]
+    clave_jugador = players.loc[players['User'] == usuario_activo, 'Password'].values[0]
     
     if pd.isna(clave_jugador):
         st.caption("Registra tu password para ingresar tus pronosticos")
