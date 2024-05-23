@@ -140,7 +140,23 @@ if usuario_activo != "Seleccionar":
                 edited_pronosticos = st.data_editor(pronosticos, column_config={
                     "Forecast": st.column_config.SelectboxColumn(options=drivers)
                 }, disabled=["Race", "Place", "Fecha Carrera", "User"], hide_index=True)
-                supabase_client.table('Pronosticos').upsert(edited_pronosticos.to_dict(orient='records'), pk='id')
+
+                if st.button("Guardar Cambios"):
+                    # Verificar si hay datos editados
+                    if edited_pronosticos is not None:
+                        # Actualizar los datos en la tabla de Pronosticos de Supabase
+                        try:
+                            supabase_client.table('Pronosticos').upsert(edited_pronosticos.to_dict(orient='records'), pk='id')
+                            st.success("Cambios guardados exitosamente en la base de datos de Supabase.")
+                        except Exception as e:
+                            st.error(f"Error al guardar cambios en la base de datos: {e}")
+                    else:
+                        st.warning("No se detectaron cambios para guardar.")
+                
+                
+                
+                
+                # supabase_client.table('Pronosticos').upsert(edited_pronosticos.to_dict(orient='records'), pk='id')
             # def actualizar_datos(df):
             #     for index, row in df.iterrows():
             #         response = supabase_client.table("Pronosticos").update({
