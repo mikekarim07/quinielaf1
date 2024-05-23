@@ -128,7 +128,7 @@ if usuario_activo != "Seleccionar":
                 st.write("Tu password ha sido registrado, para continuar selecciona un usuario diferente y posteriormente vuelve a seleccionar tu usuario para que se actualice la información")
 
         else:
-            pronosticos = supabase_client.table('Pronosticos').select("*").eq("User", usuario_activo).execute()
+            pronosticos = supabase_client.table('Pronosticos').select("*").eq("User", usuario_activo).neq({"Place": "Top 3"})execute()
             pronosticos = pd.DataFrame(pronosticos.data)
             pronosticos = pronosticos[(pronosticos['Race No'] == 10) | (pronosticos['Race No'] == 11)]
             edited_pronosticos = st.experimental_data_editor(pronosticos, column_config={
@@ -154,7 +154,7 @@ if usuario_activo != "Seleccionar":
     else:
         st.error("Usuario no encontrado.")
 
-
+.neq(
 
 # fin prueba codigo gpt
     
