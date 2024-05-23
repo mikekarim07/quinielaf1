@@ -133,9 +133,9 @@ if usuario_activo != "Seleccionar":
         else:
             current_password = st.text_input("Ingresa tu Password", type="password")
             if current_password == user_pswd:
-                pronosticos = supabase_client.table('Pronosticos').select("*").eq("User", usuario_activo).neq("Place", "Top 3").neq("Place", "Top 5").execute()
+                pronosticos = supabase_client.table('Pronosticos').select("*").eq("User", usuario_activo).neq("Place", "Top 3").neq("Place", "Top 5").order('id', desc=True).execute()
                 pronosticos = pd.DataFrame(pronosticos.data)
-                pronosticos = pronosticos.sort_values(by='id')
+                # pronosticos = pronosticos.sort_values(by='id')
                 pronosticos = pronosticos[(pronosticos['Race No'] == 10) | (pronosticos['Race No'] == 11)]
                 edited_pronosticos = st.data_editor(pronosticos, column_config={
                     "Forecast": st.column_config.SelectboxColumn(options=drivers)
