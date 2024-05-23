@@ -119,9 +119,9 @@ drivers = drivers['driverName']
 
 pronosticos = supabase_client.table('Pronosticos').select("*").eq("Usuario", usuario_activo).execute()
 pronosticos = pd.DataFrame(pronosticos.data)
+
+pronosticos = pronosticos[(pronosticos['FechaInicial'] < current_time) | ((pronosticos['FechaFinal'] > current_time)
 st.dataframe(pronosticos)
-
-
 
 
 
