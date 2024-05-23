@@ -108,8 +108,8 @@ if usuario_activo is not "Seleccionar" and user_pswd is None:
     new = st.text_input("Password")
     st.button("Reset", type="primary")
     if st.button("Registrar Password"):
-        st.write("Tu password ha sido registrado")
-        st.write(new)
+        st.write("Tu password ha sido registrado, para continuar selecciona un usuario diferente y posteriormente vuelve a seleccionar tu usuario para que se actualice la información")
+        # st.write(new)
         supabase_client.table('users').update({"password": new}).eq("id", user_id).execute()
     # supabase_client.table('users').update({"user": "Mikeylllll"}).eq("id", "1").execute()
     
