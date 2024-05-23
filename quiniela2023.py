@@ -103,7 +103,7 @@ st.write(user_pswd)
 
 if usuario_activo is not "Seleccionar" and user_pswd is None:
     st.caption("Registra tu password para ingresar tus pronosticos")
-    st.text_input(type="password")
+    st.text_input("Password", type="password")
 
 # if usuario_activo is not "Seleccionar" and user_pswd is not None:
     # user_id = users.data[0]['id']
