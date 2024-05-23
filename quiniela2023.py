@@ -153,7 +153,7 @@ if usuario_activo != "Seleccionar":
                 if st.button('Cargar datos en Supabase'):
                     # response = upload_to_supabase(edited_pronosticos)
                     upload_to_supabase(edited_pronosticos)
-                    st.write(f'Tus pronosticos han sido actualizados correctamente, recuerda que los puedes editar hasta el :' {hora_limite})
+                    st.write(f'Tus pronosticos han sido actualizados correctamente, recuerda que los puedes editar hasta el : {hora_limite}')
 
 
 
