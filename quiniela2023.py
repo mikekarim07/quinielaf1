@@ -81,7 +81,6 @@ import streamlit as st
 import pandas as pd
 from supabase import create_client, Client
 from datetime import datetime
-import pytz
 
 st.set_page_config(page_title="2024 F1 Fantasy", page_icon="🏆", layout="wide")
 
@@ -154,6 +153,8 @@ if usuario_activo != "Seleccionar":
                     st.error("Hubo un error al actualizar los datos")
     else:
         st.error("Usuario no encontrado.")
+
+
 
 # fin prueba codigo gpt
     
