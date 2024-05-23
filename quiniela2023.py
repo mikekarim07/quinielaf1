@@ -143,13 +143,13 @@ if usuario_activo != "Seleccionar":
         else:
             current_password = st.text_input("Ingresa tu Password", type="password")
             if current_password == user_pswd:
-                pronosticos = supabase_client.table('Pronosticos').select("*").eq("User", usuario_activo).neq("Place", "Top 3").neq("Place", "Top 5").order('id', desc=False).execute()
+                pronosticos = supabase_client.table('Pronosticos').select("id,Race,Place,User,Forecast").eq("User", usuario_activo).neq("Place", "Top 3").neq("Place", "Top 5").order('id', desc=False).execute()
                 pronosticos = pd.DataFrame(pronosticos.data)
                 # pronosticos = pronosticos.sort_values(by='id')
                 pronosticos = pronosticos[(pronosticos['Race No'] == 10) | (pronosticos['Race No'] == 10)]
                 edited_pronosticos = st.data_editor(pronosticos, column_config={
                     "Forecast": st.column_config.SelectboxColumn(options=drivers)
-                }, disabled=["Race", "Place", "Fecha Carrera", "User"], hide_index=True)
+                }, disabled=["Race No", "Race", "Place", "Fecha Carrera", "User", "Result", "id"], hide_index=True)
                 if st.button('Cargar pronosticos'):
                     # response = upload_to_supabase(edited_pronosticos)
                     upload_to_supabase(edited_pronosticos)
