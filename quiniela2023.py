@@ -103,14 +103,14 @@ user_pswd = users.data[0]['password']
 st.write(user_id)
 st.write(user_pswd)
 
-if usuario_activo is "Alex" and user_pswd is None:
+if usuario_activo is not "Seleccionar" and user_pswd is None:
     st.caption("Registra tu password para ingresar tus pronosticos")
     new = st.text_input("Password")
     st.button("Reset", type="primary")
     if st.button("Registrar Password"):
         st.write("Tu password ha sido registrado")
         st.write(new)
-        supabase_client.table('users').update({"password": new}).eq("id", 4).execute()
+        supabase_client.table('users').update({"password": new}).eq("id", user_id).execute()
     # supabase_client.table('users').update({"user": "Mikeylllll"}).eq("id", "1").execute()
     
 # if usuario_activo is not "Seleccionar" and user_pswd is not None:
