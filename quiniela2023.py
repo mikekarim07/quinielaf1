@@ -116,7 +116,7 @@ drivers = drivers['driverName']
 # st.dataframe(pronosticos)
 
 users = supabase_client.table('users').select("*").eq("user", usuario_activo).execute()
-users = users.data[id]
+users = users.data['id']
 st.write(users)
 
 pronosticos = supabase_client.table('Pronosticos').select("*").eq("User", usuario_activo).execute()
