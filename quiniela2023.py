@@ -108,7 +108,7 @@ supabase_client = create_client(url, key)
 drivers = supabase_client.table('drivers').select("*").execute()
 drivers = pd.DataFrame(drivers.data)
 drivers = drivers.sort_values(by='driverId')
-drivers = drivers[driverName]
+drivers = drivers['driverName']
 
 st.table(drivers)
 # if usuario_activo is not 'Seleccionar':
