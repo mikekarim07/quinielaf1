@@ -79,44 +79,41 @@ usuario_activo = st.selectbox('Usuario', usuarios)
 # #             )
 # #             updated_players = pd.concat([players, user_data], ignore_index=True)
 # #             conn.update(worksheet="Players", data=updated_players)
-        
 
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+#inicio de app
+#credenciales de supabase
 url = 'https://uehrgoqjfbdbkkyumtpw.supabase.co'
 key = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InVlaHJnb3FqZmJkYmtreXVtdHB3Iiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTcwOTA3MDE1MywiZXhwIjoyMDI0NjQ2MTUzfQ.KIIsWOhJx7sPYYP6Wdvdq6S4vPJ8vrSrZbs-vG6kBWw'
 supabase_client = create_client(url, key)
 
+#extraer la tabla de drivers
 drivers = supabase_client.table('drivers').select("*").execute()
 drivers = pd.DataFrame(drivers.data)
 drivers = drivers.sort_values(by='driverId')
 drivers = drivers['driverName']
-# st.table(drivers)
 
-# pronosticos = supabase_client.table('Pronosticos').select("*").eq("Usuario", usuario_activo).execute()
-# pronosticos = pd.DataFrame(pronosticos.data)
-# st.dataframe(pronosticos)
-
+#extraer la tabla de users
 users = supabase_client.table('users').select("*").eq("user", usuario_activo).execute()
-users = users.data[0]['id']
+user_id = users.data[0]['id']
+user_pswd = users.data[0]['password']
+st.write(user_pswd)
+
+# if usuario_activo is not "Seleccionar" and user_pswd is not None:
+    # user_id = users.data[0]['id']
+    # user_pswd = users.data[0]['password']
+    # if pd.isna(clave_jugador):
+    # #     st.caption("Registra tu password para ingresar tus pronosticos")
+    #     users = users[users['user'] == usuario_activo]
+    #     st.dataframe(users)
+    #     # players =  players[['user_key']]
+    #     # edited_players = st.data_editor(players, column_config={"user_key": st.column_config.TextColumn("Password", max_chars=10,)}, hide_index=True,)
+    #     # conn.update(worksheet="Players", data=edited_players)
+
+
+
 st.write(users)
 
 pronosticos = supabase_client.table('Pronosticos').select("*").eq("User", usuario_activo).execute()
