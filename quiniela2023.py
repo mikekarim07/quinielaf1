@@ -112,6 +112,7 @@ drivers = drivers['driverName']
 st.table(drivers)
 
 pronosticos = supabase_client.table('Pronosticos').select("*").eq("Usuario", usuario_activo).execute()
+pronosticos = pd.DataFrame(pronosticos.data)
 st.dataframe(pronosticos)
 
 # if usuario_activo is not 'Seleccionar':
