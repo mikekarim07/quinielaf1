@@ -100,8 +100,8 @@ users = supabase_client.table('users').select("*").eq("user", usuario_activo).ex
 
 user_id = str(users.data[0]['id'])
 user_pswd = users.data[0]['password']
-st.write(user_id)
-st.write(user_pswd)
+# st.write(user_id)
+# st.write(user_pswd)
 
 if usuario_activo is not "Seleccionar" and user_pswd is None:
     st.caption("Registra tu password para ingresar tus pronosticos")
@@ -109,11 +109,34 @@ if usuario_activo is not "Seleccionar" and user_pswd is None:
     st.button("Reset", type="primary")
     if st.button("Registrar Password"):
         st.write("Tu password ha sido registrado, para continuar selecciona un usuario diferente y posteriormente vuelve a seleccionar tu usuario para que se actualice la información")
-        # st.write(new)
         supabase_client.table('users').update({"password": new}).eq("id", user_id).execute()
-    # supabase_client.table('users').update({"user": "Mikeylllll"}).eq("id", "1").execute()
+
+if usuario_activo is not "Seleccionar" and user_pswd is not None:
+    pronosticos = supabase_client.table('Pronosticos').select("*").eq("User", usuario_activo).execute()
+    pronosticos = pd.DataFrame(pronosticos.data)
+    pronosticos = pronosticos[(pronosticos['Race No'] == 8) | (pronosticos['Race No'] == 9)]
+    edited_pronosticos = st.data_editor(pronosticos, column_config={"Forecast": st.column_config.SelectboxColumn(options=["Max Verstappen","Sergio Perez","Charles Leclerc","Carlos Sainz","George Russell","Lewis Hamilton","Esteban Ocon","Pierre Gasly","Oscar Piastri","Lando Norris","Valteri Bottas","Zhou Guanyu","Lance Stroll","Fernando Alonso","Kevin Magnusen","Nico Hulkenberg","Daniel Ricciardo","Yuki Tsunoda"])}, disabled=["Race", "Place", "Fecha Carrera", "User"], hide_index=True)
+
+    def actualizar_datos(df):
+        for index, row in df.iterrows():
+            response = supabase.table("Pronosticos").update({
+                "columna1": row["columna1"],
+                "columna2": row["columna2"],
+                # Añadir aquí todas las columnas que deseas actualizar
+            }).eq("id", row["id"]).execute()
+        return response
+    if st.button("Actualizar Datos"):
+        response = actualizar_datos(edited_pronosticos)
+        if response.status_code == 200:
+            st.success("Datos actualizados correctamente")
+        else:
+            st.error("Hubo un error al actualizar los datos")
+
     
-# if usuario_activo is not "Seleccionar" and user_pswd is not None:
+    
+    
+    
+    # if usuario_activo is not "Seleccionar" and user_pswd is not None:
     # user_id = users.data[0]['id']
     # user_pswd = users.data[0]['password']
     # if pd.isna(clave_jugador):
@@ -126,13 +149,8 @@ if usuario_activo is not "Seleccionar" and user_pswd is None:
 
 
 
-st.write(users)
+# st.write(users)
 
-pronosticos = supabase_client.table('Pronosticos').select("*").eq("User", usuario_activo).execute()
-pronosticos = pd.DataFrame(pronosticos.data)
-
-pronosticos = pronosticos[(pronosticos['Race No'] == 8) | (pronosticos['Race No'] == 9)]
-st.dataframe(pronosticos)
 
 
 
