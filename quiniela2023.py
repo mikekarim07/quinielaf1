@@ -109,8 +109,11 @@ drivers = supabase_client.table('drivers').select("*").execute()
 drivers = pd.DataFrame(drivers.data)
 drivers = drivers.sort_values(by='driverId')
 drivers = drivers['driverName']
-
 st.table(drivers)
+
+pronosticos = supabase_client.table('Pronosticos').select("*").eq("Usuario", usuario_activo).execute()
+st.dataframe(pronosticos)
+
 # if usuario_activo is not 'Seleccionar':
 
 #     # Consulta la base de datos para verificar los orderId existentes
