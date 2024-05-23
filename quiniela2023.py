@@ -127,7 +127,8 @@ if usuario_activo != "Seleccionar":
                 supabase_client.table('users').update({"password": new_password}).eq("id", user_id).execute()
                 st.write("Tu password ha sido registrado, para continuar selecciona un usuario diferente y posteriormente vuelve a seleccionar tu usuario para que se actualice la información")
 
-        else:
+        current_password = st.text_input("Ingresa tu Password", type="password")
+        else if current_password is user_pswd:
             pronosticos = supabase_client.table('Pronosticos').select("*").eq("User", usuario_activo).neq("Place", "Top 3").neq("Place", "Top 5").execute()
             pronosticos = pd.DataFrame(pronosticos.data)
             pronosticos = pronosticos.sort_values(by='id')
