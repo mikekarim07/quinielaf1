@@ -116,7 +116,7 @@ def upload_to_supabase(dataframe: pd.DataFrame):
     data = dataframe.to_dict(orient="records")
     try:
         # Inserta o actualiza los datos en Supabase
-        response = supabase.table('Pronosticos').upsert(data).execute()
+        response = supabase_client.table('Pronosticos').upsert(data).execute()
         return response
     except Exception as e:
         return e
