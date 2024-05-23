@@ -120,7 +120,7 @@ drivers = drivers['driverName']
 pronosticos = supabase_client.table('Pronosticos').select("*").eq("User", usuario_activo).execute()
 pronosticos = pd.DataFrame(pronosticos.data)
 
-pronosticos = pronosticos[(pronosticos['CarreraNo'] == 8) | (pronosticos['CarreraNo'] == 9)]
+pronosticos = pronosticos[(pronosticos['Race No'] == 8) | (pronosticos['Race No'] == 9)]
 st.dataframe(pronosticos)
 
 
