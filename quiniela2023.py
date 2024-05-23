@@ -140,7 +140,7 @@ if usuario_activo != "Seleccionar":
                 edited_pronosticos = st.data_editor(pronosticos, column_config={
                     "Forecast": st.column_config.SelectboxColumn(options=drivers)
                 }, disabled=["Race", "Place", "Fecha Carrera", "User"], hide_index=True)
-
+            response = supabase_client.table('Pronosticos').upsert(edited_pronosticos.to_dict(orient='records'))
             # def actualizar_datos(df):
             #     for index, row in df.iterrows():
             #         response = supabase_client.table("Pronosticos").update({
