@@ -117,11 +117,9 @@ drivers = drivers['driverName']
 
 users = supabase_client.table('users').select("*").eq("user", usuario_activo).execute()
 users = users.data
-# usuarios = obtener_usuarios()
-# usuario_nombres = {usuario['nombre']: usuario['id'] for usuario in usuarios}
-# selected_usuario_nombre = st.selectbox("Selecciona un usuario", list(usuario_nombres.keys()))
-# selected_usuario_id = usuario_nombres[selected_usuario_nombre]
-st.write(users)
+usuario_nombres = {users['user']: usuario['id'] for user in users}
+
+st.write(usuario_nombres)
 
 pronosticos = supabase_client.table('Pronosticos').select("*").eq("User", usuario_activo).execute()
 pronosticos = pd.DataFrame(pronosticos.data)
