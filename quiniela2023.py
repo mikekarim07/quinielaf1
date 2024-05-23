@@ -103,7 +103,7 @@ st.write(user_pswd)
 
 if usuario_activo is not "Seleccionar" and user_pswd is None:
     st.caption("Registra tu password para ingresar tus pronosticos")
-    new_pswd = st.text_input("Password", type="password")
+    new_pswd = st.text_input("Password")
     users = supabase_client.table('users').update({"password": new_pswd}).eq("id", user_id).execute()
     
 # if usuario_activo is not "Seleccionar" and user_pswd is not None:
