@@ -120,10 +120,8 @@ if usuario_activo is not "Seleccionar" and user_pswd is not None:
     def actualizar_datos(df):
         for index, row in df.iterrows():
             response = supabase.table("Pronosticos").update({
-                "columna1": row["columna1"],
-                "columna2": row["columna2"],
-                # Añadir aquí todas las columnas que deseas actualizar
-            }).eq("id", row["id"]).execute()
+                "Forecast": row["Forecast"],
+                }).eq("id", row["id"]).execute()
         return response
     if st.button("Actualizar Datos"):
         response = actualizar_datos(edited_pronosticos)
