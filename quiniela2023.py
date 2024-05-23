@@ -117,7 +117,7 @@ drivers = drivers['driverName']
 
 
 
-pronosticos = supabase_client.table('Pronosticos').select("*").eq("Usuario", usuario_activo).execute()
+pronosticos = supabase_client.table('Pronosticos').select("*").eq("User", usuario_activo).execute()
 pronosticos = pd.DataFrame(pronosticos.data)
 
 pronosticos = pronosticos[(pronosticos['CarreraNo'] == 8) | (pronosticos['CarreraNo'] == 9)]
@@ -125,22 +125,6 @@ st.dataframe(pronosticos)
 
 
 
-
-
-
-
-
-
-
-# # Función para obtener los datos de la tabla "Pronosticos"
-# def obtener_datos():
-#     current_time = datetime.now()
-#     response = supabase_client.table("Pronosticos").select("*").execute()
-#     data = response.data
-
-#     # Filtrar por fecha y hora actual
-#     filtered_data = [row for row in data if row['FechaInicial'] < current_time < row['FechaFinal']]
-#     return pd.DataFrame(filtered_data)
 
 # # Función para actualizar los datos en la tabla "Pronosticos"
 # def actualizar_datos(df):
