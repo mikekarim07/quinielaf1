@@ -109,7 +109,7 @@ drivers = supabase_client.table('drivers').select("*").execute()
 drivers = pd.DataFrame(drivers.data)
 drivers = drivers.sort_values(by='driverId')
 drivers = drivers['driverName']
-st.table(drivers)
+# st.table(drivers)
 
 # pronosticos = supabase_client.table('Pronosticos').select("*").eq("Usuario", usuario_activo).execute()
 # pronosticos = pd.DataFrame(pronosticos.data)
@@ -119,7 +119,7 @@ st.table(drivers)
 # Función para obtener los datos de la tabla "Pronosticos"
 def obtener_datos():
     current_time = datetime.now()
-    response = supabase.table("Pronosticos").select("*").execute()
+    response = supabase_client.table("Pronosticos").select("*").execute()
     data = response.data
 
     # Filtrar por fecha y hora actual
@@ -129,7 +129,7 @@ def obtener_datos():
 # Función para actualizar los datos en la tabla "Pronosticos"
 def actualizar_datos(df):
     for index, row in df.iterrows():
-        response = supabase.table("Pronosticos").update({
+        response = supabase_client.table("Pronosticos").update({
             "Pronostico": row["Piloto"],
             }).eq("id", row["id"]).execute()
     return response
