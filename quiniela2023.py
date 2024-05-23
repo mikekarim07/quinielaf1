@@ -120,7 +120,7 @@ drivers = drivers['driverName']
 pronosticos = supabase_client.table('Pronosticos').select("*").eq("Usuario", usuario_activo).execute()
 pronosticos = pd.DataFrame(pronosticos.data)
 
-pronosticos = pronosticos[(pronosticos['FechaInicial'] < current_time) | (pronosticos['FechaFinal'] > current_time)]
+pronosticos = pronosticos[(pronosticos['FechaInicial'] < current_time) and (pronosticos['FechaFinal'] > current_time)]
 st.dataframe(pronosticos)
 
 
@@ -132,26 +132,26 @@ st.dataframe(pronosticos)
 
 
 
-# Función para obtener los datos de la tabla "Pronosticos"
-def obtener_datos():
-    current_time = datetime.now()
-    response = supabase_client.table("Pronosticos").select("*").execute()
-    data = response.data
+# # Función para obtener los datos de la tabla "Pronosticos"
+# def obtener_datos():
+#     current_time = datetime.now()
+#     response = supabase_client.table("Pronosticos").select("*").execute()
+#     data = response.data
 
-    # Filtrar por fecha y hora actual
-    filtered_data = [row for row in data if row['FechaInicial'] < current_time < row['FechaFinal']]
-    return pd.DataFrame(filtered_data)
+#     # Filtrar por fecha y hora actual
+#     filtered_data = [row for row in data if row['FechaInicial'] < current_time < row['FechaFinal']]
+#     return pd.DataFrame(filtered_data)
 
-# Función para actualizar los datos en la tabla "Pronosticos"
-def actualizar_datos(df):
-    for index, row in df.iterrows():
-        response = supabase_client.table("Pronosticos").update({
-            "Pronostico": row["Piloto"],
-            }).eq("id", row["id"]).execute()
-    return response
+# # Función para actualizar los datos en la tabla "Pronosticos"
+# def actualizar_datos(df):
+#     for index, row in df.iterrows():
+#         response = supabase_client.table("Pronosticos").update({
+#             "Pronostico": row["Piloto"],
+#             }).eq("id", row["id"]).execute()
+#     return response
 
-pronosticos = obtener_datos()
-st.dataframe(pronosticos)
+# pronosticos = obtener_datos()
+# st.dataframe(pronosticos)
 # # Filtrar por usuario activo
 # usuario_activo = st.text_input("Usuario Activo", "default_user")
 # df_usuario_activo = df[df['usuario'] == usuario_activo]
