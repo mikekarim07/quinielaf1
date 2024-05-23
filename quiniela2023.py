@@ -96,16 +96,17 @@ drivers = drivers.sort_values(by='driverId')
 drivers = drivers['driverName']
 
 #extraer la tabla de users
-# users = supabase_client.table('users').select("*").eq("user", usuario_activo).execute()
-supabase_client.table('users').update({"user": "Mikeylllll"}).eq("id", "1").execute()
-# user_id = users.data[0]['id']
-# user_pswd = users.data[0]['password']
-# st.write(user_pswd)
+users = supabase_client.table('users').select("*").eq("user", usuario_activo).execute()
+# supabase_client.table('users').update({"user": "Mikeylllll"}).eq("id", "1").execute()
+user_id = users.data[0]['id']
+user_pswd = users.data[0]['password']
+st.write(user_id)
+st.write(user_pswd)
 
-# if usuario_activo is not "Seleccionar" and user_pswd is None:
-#     st.caption("Registra tu password para ingresar tus pronosticos")
-#     new = st.text_input("Password")
-#     nuevo_users = supabase_client.table('users').update({"password": new}).eq("id", user_id).execute()
+if usuario_activo is not "Seleccionar" and user_pswd is None:
+    st.caption("Registra tu password para ingresar tus pronosticos")
+    new = st.text_input("Password")
+    supabase_client.table('users').update({"password": new}).eq("id", user_id).execute()
     
 # if usuario_activo is not "Seleccionar" and user_pswd is not None:
     # user_id = users.data[0]['id']
