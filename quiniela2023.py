@@ -111,6 +111,16 @@ drivers = pd.DataFrame(drivers.data)
 drivers = drivers.sort_values(by='driverId')
 drivers = drivers['driverName']
 
+#función para actualizar data en supabase
+def upload_to_supabase(dataframe: pd.DataFrame):
+    data = dataframe.to_dict(orient="records")
+    try:
+        # Inserta o actualiza los datos en Supabase
+        response = supabase.table('Pronosticos').upsert(data).execute()
+        return response
+    except Exception as e:
+        return e
+
 # Extraer la tabla de users
 if usuario_activo != "Seleccionar":
     users = supabase_client.table('users').select("*").eq("user", usuario_activo).execute()
@@ -140,39 +150,13 @@ if usuario_activo != "Seleccionar":
                 edited_pronosticos = st.data_editor(pronosticos, column_config={
                     "Forecast": st.column_config.SelectboxColumn(options=drivers)
                 }, disabled=["Race", "Place", "Fecha Carrera", "User"], hide_index=True)
+                if st.button('Cargar datos en Supabase'):
+                    response = upload_to_supabase(edited_pronosticos)
+                    st.write(response)
 
-                if st.button("Guardar Cambios"):
-                    # Verificar si hay datos editados
-                    if edited_pronosticos is not None:
-                        # Actualizar los datos en la tabla de Pronosticos de Supabase
-                        try:
-                            supabase_client.table('Pronosticos').upsert(edited_pronosticos.to_dict(orient='records'), pk='id')
-                            st.success("Cambios guardados exitosamente en la base de datos de Supabase.")
-                        except Exception as e:
-                            st.error(f"Error al guardar cambios en la base de datos: {e}")
-                    else:
-                        st.warning("No se detectaron cambios para guardar.")
-                
-                
-                
-                
-                # supabase_client.table('Pronosticos').upsert(edited_pronosticos.to_dict(orient='records'), pk='id')
-            # def actualizar_datos(df):
-            #     for index, row in df.iterrows():
-            #         response = supabase_client.table("Pronosticos").update({
-            #             "Forecast": row["Forecast"],
-            #         }).eq("id", row["id"]).execute()
-            #         if response.status_code != 200:
-            #             st.error(f"Error al actualizar el registro con ID {row['id']}")
-            #             return False
-            #     return True
 
-            # if st.button("Actualizar Datos"):
-            #     success = actualizar_datos(edited_pronosticos)
-            #     if success:
-            #         st.success("Datos actualizados correctamente")
-            #     else:
-            #         st.error("Hubo un error al actualizar los datos")
+
+    
     else:
         st.error("Usuario no encontrado.")
 
