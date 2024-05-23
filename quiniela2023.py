@@ -140,22 +140,22 @@ if usuario_activo != "Seleccionar":
                     "Forecast": st.column_config.SelectboxColumn(options=drivers)
                 }, disabled=["Race", "Place", "Fecha Carrera", "User"], hide_index=True)
 
-            def actualizar_datos(df):
-                for index, row in df.iterrows():
-                    response = supabase_client.table("Pronosticos").update({
-                        "Forecast": row["Forecast"],
-                    }).eq("id", row["id"]).execute()
-                    if response.status_code != 200:
-                        st.error(f"Error al actualizar el registro con ID {row['id']}")
-                        return False
-                return True
+            # def actualizar_datos(df):
+            #     for index, row in df.iterrows():
+            #         response = supabase_client.table("Pronosticos").update({
+            #             "Forecast": row["Forecast"],
+            #         }).eq("id", row["id"]).execute()
+            #         if response.status_code != 200:
+            #             st.error(f"Error al actualizar el registro con ID {row['id']}")
+            #             return False
+            #     return True
 
-            if st.button("Actualizar Datos"):
-                success = actualizar_datos(edited_pronosticos)
-                if success:
-                    st.success("Datos actualizados correctamente")
-                else:
-                    st.error("Hubo un error al actualizar los datos")
+            # if st.button("Actualizar Datos"):
+            #     success = actualizar_datos(edited_pronosticos)
+            #     if success:
+            #         st.success("Datos actualizados correctamente")
+            #     else:
+            #         st.error("Hubo un error al actualizar los datos")
     else:
         st.error("Usuario no encontrado.")
 
