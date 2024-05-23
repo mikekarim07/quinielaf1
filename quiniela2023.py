@@ -105,8 +105,8 @@ url = 'https://uehrgoqjfbdbkkyumtpw.supabase.co'
 key = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InVlaHJnb3FqZmJkYmtreXVtdHB3Iiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTcwOTA3MDE1MywiZXhwIjoyMDI0NjQ2MTUzfQ.KIIsWOhJx7sPYYP6Wdvdq6S4vPJ8vrSrZbs-vG6kBWw'
 supabase_client = create_client(url, key)
 
-response_drivers = supabase_client.table('drivers').select("*").execute()
-drivers = pd.DataFrame(response_drivers.data)
+drivers = supabase_client.table('drivers').select("*").execute()
+drivers = pd.DataFrame(drivers.data)
 drivers = drivers.sort_values(by='driverId')
 
 st.table(drivers)
