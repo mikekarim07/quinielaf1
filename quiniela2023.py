@@ -116,6 +116,22 @@ drivers = drivers['driverName']
 # st.dataframe(pronosticos)
 
 
+
+pronosticos = supabase_client.table('Pronosticos').select("*").eq("Usuario", usuario_activo).execute()
+pronosticos = pd.DataFrame(pronosticos.data)
+st.dataframe(pronosticos)
+
+
+
+
+
+
+
+
+
+
+
+
 # Función para obtener los datos de la tabla "Pronosticos"
 def obtener_datos():
     current_time = datetime.now()
