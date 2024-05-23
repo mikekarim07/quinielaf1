@@ -114,7 +114,7 @@ if usuario_activo is not "Seleccionar" and user_pswd is None:
 if usuario_activo is not "Seleccionar" and user_pswd is not None:
     pronosticos = supabase_client.table('Pronosticos').select("*").eq("User", usuario_activo).execute()
     pronosticos = pd.DataFrame(pronosticos.data)
-    pronosticos = pronosticos[(pronosticos['Race No'] == 8) | (pronosticos['Race No'] == 9)]
+    pronosticos = pronosticos[(pronosticos['Race No'] == 10) | (pronosticos['Race No'] == 11)]
     edited_pronosticos = st.data_editor(pronosticos, column_config={"Forecast": st.column_config.SelectboxColumn(options=["Max Verstappen","Sergio Perez","Charles Leclerc","Carlos Sainz","George Russell","Lewis Hamilton","Esteban Ocon","Pierre Gasly","Oscar Piastri","Lando Norris","Valteri Bottas","Zhou Guanyu","Lance Stroll","Fernando Alonso","Kevin Magnusen","Nico Hulkenberg","Daniel Ricciardo","Yuki Tsunoda"])}, disabled=["Race", "Place", "Fecha Carrera", "User"], hide_index=True)
 
     def actualizar_datos(df):
