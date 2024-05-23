@@ -98,7 +98,7 @@ drivers = drivers['driverName']
 #extraer la tabla de users
 users = supabase_client.table('users').select("*").eq("user", usuario_activo).execute()
 
-user_id = users.data[0]['id']
+user_id = str(users.data[0]['id'])
 user_pswd = users.data[0]['password']
 st.write(user_id)
 st.write(user_pswd)
