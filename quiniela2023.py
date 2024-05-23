@@ -154,7 +154,6 @@ if usuario_activo != "Seleccionar":
     else:
         st.error("Usuario no encontrado.")
 
-.neq(
 
 # fin prueba codigo gpt
     
