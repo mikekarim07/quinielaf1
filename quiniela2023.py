@@ -114,6 +114,11 @@ drivers = drivers['driverName']
 carreras = supabase_client.table('Pronosticos').select("id,Race No").execute()
 carreras = pd.DataFrame(carreras.data)
 carreras = carreras['Race No'].unique()
+st.write(carreras)
+
+resultados = supabase_client.table('Resultados').select("id,Race No,Race,Place,Result").execute()
+resultados = pd.DataFrame(resultados.data)
+st.write(resultados)
 
 
 admin = supabase_client.table('admin_control').select("*").execute()
@@ -185,7 +190,7 @@ if usuario_activo != "Seleccionar":
                     
                 #     upload_admin(edited_admin)
                 st.write('La configuración de las carreras ha sido cargado')
-                resultados = supabase_client.table('Resultados').select("id,Race No,Race,Place,Result").execute()
+                
                 
 
     
