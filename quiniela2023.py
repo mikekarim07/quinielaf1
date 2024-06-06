@@ -103,7 +103,7 @@ if usuario_activo != "Seleccionar":
                     # response = upload_to_supabase(edited_pronosticos)
                     upload_to_supabase(edited_pronosticos)
                     st.write(f'Tus pronosticos han sido actualizados correctamente, recuerda que los puedes editar hasta el : {hora_limite}')
-            if usuario_activo == "Mike":
+            if usuario_activo == "Mike" and current_password == user_pswd:
                 race_inicial_update = st.sidebar.text_input("Ingresa la carrera inicial")
                 race_final_update = st.sidebar.text_input("Ingresa la carrera Final")
                 if st.button('Actualizar Race Filter'):
