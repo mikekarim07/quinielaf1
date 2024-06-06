@@ -146,15 +146,15 @@ if usuario_activo != "Seleccionar":
             if current_password == user_pswd:
                 pronosticos = supabase_client.table('Pronosticos').select("id,Race No,Race,Place,User,Forecast").eq("User", usuario_activo).neq("Place", "Top 3").neq("Place", "Top 5").order('id', desc=False).execute()
                 pronosticos = pd.DataFrame(pronosticos.data)
-                # pronosticos = pronosticos.sort_values(by='id')
+                pronosticos = pronosticos.sort_values(by='id')
                 pronosticos = pronosticos[(pronosticos['Race No'] == 11) | (pronosticos['Race No'] == 12)]
-                # edited_pronosticos = st.data_editor(pronosticos, column_config={
-                #     "Forecast": st.column_config.SelectboxColumn(options=drivers)
-                # }, disabled=["Race No", "Race", "Place", "Fecha Carrera", "User", "Result", "id"], hide_index=True)
-                # if st.button('Cargar pronosticos'):
-                #     # response = upload_to_supabase(edited_pronosticos)
-                #     upload_to_supabase(edited_pronosticos)
-                #     st.write(f'Tus pronosticos han sido actualizados correctamente, recuerda que los puedes editar hasta el : {hora_limite}')
+                edited_pronosticos = st.data_editor(pronosticos, column_config={
+                    "Forecast": st.column_config.SelectboxColumn(options=drivers)
+                }, disabled=["Race No", "Race", "Place", "Fecha Carrera", "User", "Result", "id"], hide_index=True)
+                if st.button('Cargar pronosticos'):
+                    # response = upload_to_supabase(edited_pronosticos)
+                    upload_to_supabase(edited_pronosticos)
+                    st.write(f'Tus pronosticos han sido actualizados correctamente, recuerda que los puedes editar hasta el : {hora_limite}')
 
 
 
@@ -163,12 +163,6 @@ if usuario_activo != "Seleccionar":
         st.error("Usuario no encontrado.")
 
 
-with tab1:
-    edited_pronosticos = st.data_editor(pronosticos, column_config={"Forecast": st.column_config.SelectboxColumn(options=drivers)}, disabled=["Race No", "Race", "Place", "Fecha Carrera", "User", "Result", "id"], hide_index=True)
-    if st.button('Cargar pronosticos'):
-    # response = upload_to_supabase(edited_pronosticos)
-        upload_to_supabase(edited_pronosticos)
-        st.write(f'Tus pronosticos han sido actualizados correctamente, recuerda que los puedes editar hasta el : {hora_limite}')
 
 
 
