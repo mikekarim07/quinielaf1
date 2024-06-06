@@ -112,7 +112,7 @@ drivers = drivers.sort_values(by='driverId')
 drivers = drivers['driverName']
 
 admin = supabase_client.table('admin_control').select("*").execute()
-admin = pd.DataFrame(admin.data)
+# admin = pd.DataFrame(admin.data)
 race_inicial = str(admin.data[0]['RaceNo1'])
 race_final = str(admin.data[0]['RaceNo2'])
 st.write(race_inicial)
