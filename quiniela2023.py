@@ -112,12 +112,11 @@ drivers = drivers.sort_values(by='driverId')
 drivers = drivers['driverName']
 
 admin = supabase_client.table('admin_control').select("*").execute()
-# admin = pd.DataFrame(admin.data)
-race_inicial = str(admin.data[0]['RaceNo1'])
-race_final = str(admin.data[0]['RaceNo2'])
+race_inicial = str(admin.data[0]['RaceNo'])
+race_final = str(admin.data[1]['RaceNo'])
 st.write(race_inicial)
 st.write(race_final)
-
+admin = pd.DataFrame(admin.data)
 
 #función para actualizar data en supabase
 def upload_to_supabase(dataframe: pd.DataFrame):
@@ -174,14 +173,14 @@ if usuario_activo != "Seleccionar":
                     upload_to_supabase(edited_pronosticos)
                     st.write(f'Tus pronosticos han sido actualizados correctamente, recuerda que los puedes editar hasta el : {hora_limite}')
             if usuario_activo == "Mike":
-                admin = pd.DataFrame(admin.data)
-                edited_admin = st.data_editor(admin, column_config={
-                    "RaceNo1": st.column_config.TextColumn("RaceNo1")},hide_index=True,)
-                if st.button('Cargar Carreras'):
+                
+                # edited_admin = st.data_editor(admin, column_config={
+                #     "RaceNo1": st.column_config.TextColumn("RaceNo1")},hide_index=True,)
+                # if st.button('Cargar Carreras'):
                     
-                    upload_admin(edited_admin)
-                    st.write('La configuración de las carreras ha sido cargado')
-                resultados = supabase_client.table('Resultados').select("id,Race No,Race,Place,Result").eq("User", usuario_activo).neq("Place", "Top 3").neq("Place", "Top 5").order('id', desc=False).execute()
+                #     upload_admin(edited_admin)
+                #     st.write('La configuración de las carreras ha sido cargado')
+                # resultados = supabase_client.table('Resultados').select("id,Race No,Race,Place,Result").eq("User", usuario_activo).neq("Place", "Top 3").neq("Place", "Top 5").order('id', desc=False).execute()
                 
 
     
