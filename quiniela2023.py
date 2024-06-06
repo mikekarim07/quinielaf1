@@ -104,18 +104,25 @@ if usuario_activo != "Seleccionar":
                     upload_to_supabase(edited_pronosticos)
                     st.write(f'Tus pronosticos han sido actualizados correctamente, recuerda que los puedes editar hasta el : {hora_limite}')
             if usuario_activo == "Mike":
-                edited_admin = st.data_editor(admin_tbl, column_config={
-                    "RaceNo": st.column_config.SelectboxColumn(options=carreras)
-                    }, 
-                    # Disable editing for 'User', 'id', and 'descripcion' columns
-                    disabled=["User", "id", "descripcion"], 
-                    # Hide the index column
-                    hide_index=True
+                race_inicial_update = st.sidebar.text_input("Ingresa la carrera inicial")
+                race_final_update = st.sidebar.text_input("Ingresa la carrera Final")
+                if st.button('Actualizar Race Filter'):
+                    data, count = supabase.table('admin_control').update({'RaceNo': race_inicial_update}).eq('id', 1).execute()
+                    data, count = supabase.table('admin_control').update({'RaceNo': race_final_update}).eq('id', 1).execute()
+                    st.write('La configuración de las carreras ha sido cargado')
+                
+                # edited_admin = st.data_editor(admin_tbl, column_config={
+                #     "RaceNo": st.column_config.SelectboxColumn(options=carreras)
+                #     }, 
+                #     # Disable editing for 'User', 'id', and 'descripcion' columns
+                #     disabled=["User", "id", "descripcion"], 
+                #     # Hide the index column
+                #     hide_index=True
                 )
                 # if st.button('Cargar Carreras'):
                     
                 #     upload_admin(edited_admin)
-                st.write('La configuración de las carreras ha sido cargado')
+                # st.write('La configuración de las carreras ha sido cargado')
                 
                 
 
