@@ -129,6 +129,16 @@ def upload_to_supabase(dataframe: pd.DataFrame):
     except Exception as e:
         return e
 
+def upload_admin(dataframe: pd.DataFrame):
+    data = dataframe.to_dict(orient="records")
+    try:
+        # Inserta o actualiza los datos en Supabase
+        response = supabase_client.table('admin_control').upsert(data).execute()
+        return response
+    except Exception as e:
+        return e
+
+
 # Extraer la tabla de users
 
 if usuario_activo != "Seleccionar":
@@ -163,8 +173,17 @@ if usuario_activo != "Seleccionar":
                     # response = upload_to_supabase(edited_pronosticos)
                     upload_to_supabase(edited_pronosticos)
                     st.write(f'Tus pronosticos han sido actualizados correctamente, recuerda que los puedes editar hasta el : {hora_limite}')
-            # if usuario_activo == "Mike":
-            #     resultados = supabase_client.table('Resultados').select("id,Race No,Race,Place,Result").eq("User", usuario_activo).neq("Place", "Top 3").neq("Place", "Top 5").order('id', desc=False).execute()
+            if usuario_activo == "Mike":
+                admin = pd.DataFrame(admin.data)
+                edited_admin = st.data_editor(admin, column_config={
+                    "RaceNo1": st.column_config.TextColumn("Ingresa el numero de carrera inicial"),
+                    "RaceNo2": st.column_config.TextColumn("Ingresa el numero de carrera final"),
+                }, disabled=["id", "User"], hide_index=True)
+                if st.button('Cargar Carreras'):
+                    
+                    upload_admin(edited_admin)
+                    st.write('La configuración de las carreras ha sido cargado')
+                resultados = supabase_client.table('Resultados').select("id,Race No,Race,Place,Result").eq("User", usuario_activo).neq("Place", "Top 3").neq("Place", "Top 5").order('id', desc=False).execute()
                 
 
     
