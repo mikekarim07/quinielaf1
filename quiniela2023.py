@@ -129,7 +129,8 @@ if usuario_activo != "Seleccionar":
 pronosticos_all['key1'] = pronosticos_all['Race'] + pronosticos_all['Place']
 st.dataframe(pronosticos_all)
 resultados_all['key1'] = resultados_all['Race'] + resultados_all['Place']
-pronosticos_all = pronosticos_all.merge(resultados_all, left_on='key_1', right_on='key_1', suffixes=('', '_Results'))
+pronosticos_all = pronosticos_all.merge(resultados_all, left_on="key_1", right_on='key_1', how='left')
+
 st.dataframe(pronosticos_all)
 
 
