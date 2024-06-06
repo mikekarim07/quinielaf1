@@ -32,15 +32,15 @@ drivers = pd.DataFrame(drivers.data)
 drivers = drivers.sort_values(by='driverId')
 drivers = drivers['driverName']
 
-resultados = supabase_client.table('Resultados').select("id,Race No,Race,Place,Result").execute()
-resultados = pd.DataFrame(resultados.data)
-
 admin = supabase_client.table('admin_control').select("*").execute()
 race_inicial = admin.data[0]['RaceNo']
 race_final = admin.data[1]['RaceNo']
 st.write(race_inicial)
 st.write(race_final)
 admin_tbl = pd.DataFrame(admin.data)
+
+resultados = supabase_client.table('Resultados').select("id,Race No,Race,Place,Result").execute()
+resultados = pd.DataFrame(resultados.data)
 
 #función para actualizar data en supabase
 def upload_forecast(dataframe: pd.DataFrame):
@@ -87,7 +87,7 @@ if usuario_activo != "Seleccionar":
                 pronosticos = supabase_client.table('Pronosticos').select("id,Race No,Race,Place,User,Forecast").eq("User", usuario_activo).neq("Place", "Top 3").neq("Place", "Top 5").order('id', desc=False).execute()
                 pronosticos = pd.DataFrame(pronosticos.data)
                 pronosticos = pronosticos.sort_values(by='id')
-                pronosticos = pronosticos[(pronosticos['Race No'] == race_inicial) | (pronosticos['Race No'] == race_final)]
+                pronosticos = pronosticos[(pronosticos['Race No'] >= race_inicial) & (pronosticos['Race No'] <= race_final)]
                 edited_pronosticos = st.data_editor(pronosticos, column_config={
                     "Forecast": st.column_config.SelectboxColumn(options=drivers)
                 }, disabled=["Race No", "Race", "Place", "Fecha Carrera", "User", "Result", "id"], hide_index=True)
@@ -102,14 +102,17 @@ if usuario_activo != "Seleccionar":
                     data, count = supabase_client.table('admin_control').update({'RaceNo': race_inicial_update}).eq('id', 1).execute()
                     data, count = supabase_client.table('admin_control').update({'RaceNo': race_final_update}).eq('id', 2).execute()
                     st.sidebar.write('La configuración de las carreras ha sido cargado')
-                st.dataframe(resultados)
-                edited_resultados = st.data_editor(resultados, column_config={
+
+                st.write('resultados')
+                resultados = resultados[(resultados['Race No'] >= race_inicial) & (resultados['Race No'] <= race_final)]
+                edited_resultados = st.data_editor(pronosticos, column_config={
                     "Result": st.column_config.SelectboxColumn(options=drivers)
                 }, disabled=["Race No", "Race", "Place", "id"], hide_index=True)
-                if st.button('Cargar resultados'):
-                    # response = upload_to_supabase(edited_pronosticos)
-                    upload_results(edited_resultados)
-                    st.write('Los resultados han sido cargados con exito')
+    
+                # if st.button('Cargar resultados'):
+                #     # response = upload_to_supabase(edited_pronosticos)
+                #     upload_results(edited_resultados)
+                #     st.write('Los resultados han sido cargados con exito')
                 
                 
 
