@@ -46,7 +46,7 @@ race_inicial = str(admin.data[0]['RaceNo'])
 race_final = str(admin.data[1]['RaceNo'])
 st.write(race_inicial)
 st.write(race_final)
-
+admin_tbl = pd.DataFrame(admin.data)
 
 #función para actualizar data en supabase
 def upload_to_supabase(dataframe: pd.DataFrame):
@@ -105,7 +105,7 @@ if usuario_activo != "Seleccionar":
             if usuario_activo == "Mike":
                 # Open a data editor for 'admin_tbl' and save the edited table to 'edited_admin'
                 edited_admin = st.data_editor(
-                    admin, 
+                    admin_tbl, 
                     column_config={
                         # Configure 'RaceNo' column to use a select box with options from 'carreras'
                         "RaceNo": st.column_config.SelectboxColumn(options=carreras)
