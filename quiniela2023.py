@@ -118,7 +118,7 @@ if usuario_activo != "Seleccionar":
                 #     disabled=["User", "id", "descripcion"], 
                 #     # Hide the index column
                 #     hide_index=True
-                )
+                # )
                 # if st.button('Cargar Carreras'):
                     
                 #     upload_admin(edited_admin)
