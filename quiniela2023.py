@@ -105,7 +105,7 @@ if usuario_activo != "Seleccionar":
             if usuario_activo == "Mike":
                 # Open a data editor for 'admin_tbl' and save the edited table to 'edited_admin'
                 edited_admin = st.data_editor(
-                    admin_tbl, 
+                    admin, 
                     column_config={
                         # Configure 'RaceNo' column to use a select box with options from 'carreras'
                         "RaceNo": st.column_config.SelectboxColumn(options=carreras)
