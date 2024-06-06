@@ -98,7 +98,7 @@ hora_limite = datetime.strptime(f"{year}-{month}-{day} {hora}:{minuto}", '%Y-%m-
 
 tab1, tab2 = st.tabs(["Pronosticos", "Resultados"])
 usuarios = pd.DataFrame({'Usuario': ['Seleccionar', 'Alex', 'Gerry', 'Giorgio', 'Mike']})
-usuario_activo = st.selectbox('Usuario', usuarios['Usuario'])
+usuario_activo = st.sidebar.selectbox('Usuario', usuarios['Usuario'])
 
 # Credenciales de Supabase
 url = 'https://uehrgoqjfbdbkkyumtpw.supabase.co'
@@ -134,15 +134,15 @@ if usuario_activo != "Seleccionar":
 
         if none_pswd is None:
             st.caption("Registra tu password para ingresar tus pronosticos")
-            new_password = st.text_input("Password", type="password")
-            if st.button("Registrar Password"):
+            new_password = st.sidebar.text_input("Password", type="password")
+            if st.sidebar.button("Registrar Password"):
                 supabase_client.table('users').update({"password": new_password}).eq("id", user_id).execute()
-                st.write("Tu password ha sido registrado, para continuar selecciona un usuario diferente y posteriormente vuelve a seleccionar tu usuario para que se actualice la información")
+                st.sidebar.write("Tu password ha sido registrado, para continuar selecciona un usuario diferente y posteriormente vuelve a seleccionar tu usuario para que se actualice la información")
 
         
 
         else:
-            current_password = st.text_input("Ingresa tu Password", type="password")
+            current_password = st.sidebar.text_input("Ingresa tu Password", type="password")
             if current_password == user_pswd:
                 pronosticos = supabase_client.table('Pronosticos').select("id,Race No,Race,Place,User,Forecast").eq("User", usuario_activo).neq("Place", "Top 3").neq("Place", "Top 5").order('id', desc=False).execute()
                 pronosticos = pd.DataFrame(pronosticos.data)
