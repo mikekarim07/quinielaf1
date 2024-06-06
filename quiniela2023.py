@@ -42,8 +42,8 @@ resultados = pd.DataFrame(resultados.data)
 st.write(resultados)
 
 admin = supabase_client.table('admin_control').select("*").execute()
-race_inicial = str(admin.data[0]['RaceNo'])
-race_final = str(admin.data[1]['RaceNo'])
+race_inicial = admin.data[0]['RaceNo']
+race_final = admin.data[1]['RaceNo']
 st.write(race_inicial)
 st.write(race_final)
 admin_tbl = pd.DataFrame(admin.data)
