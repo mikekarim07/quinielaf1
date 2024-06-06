@@ -104,8 +104,8 @@ if usuario_activo != "Seleccionar":
                     upload_to_supabase(edited_pronosticos)
                     st.write(f'Tus pronosticos han sido actualizados correctamente, recuerda que los puedes editar hasta el : {hora_limite}')
             if usuario_activo == "Mike" and current_password == user_pswd:
-                race_inicial_update = st.sidebar.text_input("Ingresa la carrera inicial")
-                race_final_update = st.sidebar.text_input("Ingresa la carrera Final")
+                race_inicial_update = st.sidebar.numer_input("Ingresa la carrera inicial")
+                race_final_update = st.sidebar.number_input("Ingresa la carrera Final")
                 if st.sidebar.button('Actualizar Race Filter'):
                     data, count = supabase.table('admin_control').update({'RaceNo': race_inicial_update}).eq('id', 1).execute()
                     data, count = supabase.table('admin_control').update({'RaceNo': race_final_update}).eq('id', 1).execute()
