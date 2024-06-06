@@ -133,7 +133,7 @@ if usuario_activo != "Seleccionar":
         # st.write(user_pswd)
 
         if none_pswd is None:
-            st.caption("Registra tu password para ingresar tus pronosticos")
+            st.sidebar.caption("Registra tu password para ingresar tus pronosticos")
             new_password = st.sidebar.text_input("Password", type="password")
             if st.sidebar.button("Registrar Password"):
                 supabase_client.table('users').update({"password": new_password}).eq("id", user_id).execute()
