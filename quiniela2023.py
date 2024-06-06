@@ -126,7 +126,7 @@ race_inicial = str(admin.data[0]['RaceNo'])
 race_final = str(admin.data[1]['RaceNo'])
 st.write(race_inicial)
 st.write(race_final)
-admin = pd.DataFrame(admin.data)
+admin_tbl = pd.DataFrame(admin.data)
 
 #función para actualizar data en supabase
 def upload_to_supabase(dataframe: pd.DataFrame):
@@ -183,9 +183,8 @@ if usuario_activo != "Seleccionar":
                     upload_to_supabase(edited_pronosticos)
                     st.write(f'Tus pronosticos han sido actualizados correctamente, recuerda que los puedes editar hasta el : {hora_limite}')
             if usuario_activo == "Mike":
-                # edited_admin = st.data_editor(admin, column_config={
-                #     "RaceNo": st.column_config.SelectboxColumn(options=carreras)
-                # }, disabled=["User", "id", "descripcion"], hide_index=True)
+                edited_admin = st.data_editor(admin_tbl, column_config={
+                    "RaceNo": st.column_config.SelectboxColumn(options=carreras)}, disabled=["User", "id", "descripcion"], hide_index=True)
                 # if st.button('Cargar Carreras'):
                     
                 #     upload_admin(edited_admin)
