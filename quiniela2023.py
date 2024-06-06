@@ -122,8 +122,10 @@ if usuario_activo != "Seleccionar":
         st.error("Usuario no encontrado.")
 
 
-
-
+pronosticos['key1'] = pronosticos['Race'] + pronosticos['Place']
+st.dataframe(pronosticos)
+resultados['key1'] = resultados['Race'] + resultados['Place']
+st.dataframe(resultados)
 
 
 
