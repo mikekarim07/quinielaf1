@@ -176,9 +176,7 @@ if usuario_activo != "Seleccionar":
             if usuario_activo == "Mike":
                 admin = pd.DataFrame(admin.data)
                 edited_admin = st.data_editor(admin, column_config={
-                    "RaceNo1": st.column_config.TextColumn("Ingresa el numero de carrera inicial"),
-                    "RaceNo2": st.column_config.TextColumn("Ingresa el numero de carrera final"),
-                }, disabled=["id", "User"], hide_index=True)
+                    "RaceNo1": st.column_config.TextColumn("RaceNo1")},hide_index=True,)
                 if st.button('Cargar Carreras'):
                     
                     upload_admin(edited_admin)
