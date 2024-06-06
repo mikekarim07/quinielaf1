@@ -111,6 +111,11 @@ drivers = pd.DataFrame(drivers.data)
 drivers = drivers.sort_values(by='driverId')
 drivers = drivers['driverName']
 
+carreras = supabase_client.table('Pronosticos').select("id,Race No").execute()
+carreras = pd.DataFrame(carreras.data)
+carreras = carreras['Race No'].unique()
+
+
 admin = supabase_client.table('admin_control').select("*").execute()
 race_inicial = str(admin.data[0]['RaceNo'])
 race_final = str(admin.data[1]['RaceNo'])
@@ -172,15 +177,15 @@ if usuario_activo != "Seleccionar":
                     # response = upload_to_supabase(edited_pronosticos)
                     upload_to_supabase(edited_pronosticos)
                     st.write(f'Tus pronosticos han sido actualizados correctamente, recuerda que los puedes editar hasta el : {hora_limite}')
-            # if usuario_activo == "Mike":
-                
-                # edited_admin = st.data_editor(admin, column_config={
-                #     "RaceNo1": st.column_config.TextColumn("RaceNo1")},hide_index=True,)
-                # if st.button('Cargar Carreras'):
+            if usuario_activo == "Mike":
+                edited_admin = st.data_editor(admin, column_config={
+                    "RaceNo": st.column_config.SelectboxColumn(options=carreras)
+                }, disabled=["User", "id", "descripcion"], hide_index=True)
+                if st.button('Cargar Carreras'):
                     
-                #     upload_admin(edited_admin)
-                #     st.write('La configuración de las carreras ha sido cargado')
-                # resultados = supabase_client.table('Resultados').select("id,Race No,Race,Place,Result").eq("User", usuario_activo).neq("Place", "Top 3").neq("Place", "Top 5").order('id', desc=False).execute()
+                    upload_admin(edited_admin)
+                    st.write('La configuración de las carreras ha sido cargado')
+                resultados = supabase_client.table('Resultados').select("id,Race No,Race,Place,Result").eq("User", usuario_activo).neq("Place", "Top 3").neq("Place", "Top 5").order('id', desc=False).execute()
                 
 
     
