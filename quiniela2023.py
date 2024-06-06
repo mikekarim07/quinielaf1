@@ -106,10 +106,10 @@ if usuario_activo != "Seleccionar":
             if usuario_activo == "Mike" and current_password == user_pswd:
                 race_inicial_update = st.sidebar.text_input("Ingresa la carrera inicial")
                 race_final_update = st.sidebar.text_input("Ingresa la carrera Final")
-                if st.button('Actualizar Race Filter'):
+                if st.sidebar.button('Actualizar Race Filter'):
                     data, count = supabase.table('admin_control').update({'RaceNo': race_inicial_update}).eq('id', 1).execute()
                     data, count = supabase.table('admin_control').update({'RaceNo': race_final_update}).eq('id', 1).execute()
-                    st.write('La configuración de las carreras ha sido cargado')
+                    st.sidebar.write('La configuración de las carreras ha sido cargado')
                 
                 # edited_admin = st.data_editor(admin_tbl, column_config={
                 #     "RaceNo": st.column_config.SelectboxColumn(options=carreras)
