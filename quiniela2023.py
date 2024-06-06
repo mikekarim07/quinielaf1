@@ -32,14 +32,8 @@ drivers = pd.DataFrame(drivers.data)
 drivers = drivers.sort_values(by='driverId')
 drivers = drivers['driverName']
 
-carreras = supabase_client.table('Pronosticos').select("id,Race No").execute()
-carreras = pd.DataFrame(carreras.data)
-carreras = carreras['Race No'].unique()
-st.write(carreras)
-
 resultados = supabase_client.table('Resultados').select("id,Race No,Race,Place,Result").execute()
 resultados = pd.DataFrame(resultados.data)
-st.write(resultados)
 
 admin = supabase_client.table('admin_control').select("*").execute()
 race_inicial = admin.data[0]['RaceNo']
@@ -47,10 +41,9 @@ race_final = admin.data[1]['RaceNo']
 st.write(race_inicial)
 st.write(race_final)
 admin_tbl = pd.DataFrame(admin.data)
-st.dataframe(admin_tbl)
 
 #función para actualizar data en supabase
-def upload_to_supabase(dataframe: pd.DataFrame):
+def upload_forecast(dataframe: pd.DataFrame):
     data = dataframe.to_dict(orient="records")
     try:
         # Inserta o actualiza los datos en Supabase
@@ -59,15 +52,14 @@ def upload_to_supabase(dataframe: pd.DataFrame):
     except Exception as e:
         return e
 
-def upload_admin(dataframe: pd.DataFrame):
+def upload_results(dataframe: pd.DataFrame):
     data = dataframe.to_dict(orient="records")
     try:
         # Inserta o actualiza los datos en Supabase
-        response = supabase_client.table('admin_control').upsert(data).execute()
+        response = supabase_client.table('Resultados').upsert(data).execute()
         return response
     except Exception as e:
         return e
-
 
 # Extraer la tabla de users
 
@@ -101,7 +93,7 @@ if usuario_activo != "Seleccionar":
                 }, disabled=["Race No", "Race", "Place", "Fecha Carrera", "User", "Result", "id"], hide_index=True)
                 if st.button('Cargar pronosticos'):
                     # response = upload_to_supabase(edited_pronosticos)
-                    upload_to_supabase(edited_pronosticos)
+                    upload_forecast(edited_pronosticos)
                     st.write(f'Tus pronosticos han sido actualizados correctamente, recuerda que los puedes editar hasta el : {hora_limite}')
             if usuario_activo == "Mike" and current_password == user_pswd:
                 race_inicial_update = st.sidebar.number_input("Ingresa la carrera inicial", step=1)
@@ -110,19 +102,13 @@ if usuario_activo != "Seleccionar":
                     data, count = supabase_client.table('admin_control').update({'RaceNo': race_inicial_update}).eq('id', 1).execute()
                     data, count = supabase_client.table('admin_control').update({'RaceNo': race_final_update}).eq('id', 2).execute()
                     st.sidebar.write('La configuración de las carreras ha sido cargado')
-                
-                # edited_admin = st.data_editor(admin_tbl, column_config={
-                #     "RaceNo": st.column_config.SelectboxColumn(options=carreras)
-                #     }, 
-                #     # Disable editing for 'User', 'id', and 'descripcion' columns
-                #     disabled=["User", "id", "descripcion"], 
-                #     # Hide the index column
-                #     hide_index=True
-                # )
-                # if st.button('Cargar Carreras'):
-                    
-                #     upload_admin(edited_admin)
-                # st.write('La configuración de las carreras ha sido cargado')
+                edited_resultados = st.data_editor(resultados, column_config={
+                    "Result": st.column_config.SelectboxColumn(options=drivers)
+                }, disabled=["Race No", "Race", "Place", "id"], hide_index=True)
+                if st.button('Cargar resultados'):
+                    # response = upload_to_supabase(edited_pronosticos)
+                    upload_results(edited_resultados)
+                    st.write('Los resultados han sido cargados con exito')
                 
                 
 
