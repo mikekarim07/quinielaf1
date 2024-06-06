@@ -110,10 +110,10 @@ if usuario_activo != "Seleccionar":
                     "Result": st.column_config.SelectboxColumn(options=drivers)
                 }, disabled=["Race No", "Race", "Place", "id"], hide_index=True)
     
-                # if st.button('Cargar resultados'):
-                #     # response = upload_to_supabase(edited_pronosticos)
-                #     upload_results(edited_resultados)
-                #     st.write('Los resultados han sido cargados con exito')
+                if st.button('Cargar resultados'):
+                    # response = upload_to_supabase(edited_pronosticos)
+                    upload_results(edited_resultados)
+                    st.write('Los resultados han sido cargados con exito')
                 
                 
 
