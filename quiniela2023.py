@@ -43,7 +43,7 @@ resultados = supabase_client.table('Resultados').select("id,Race No,Race,Place,R
 resultados = pd.DataFrame(resultados.data)
 resultados_all = resultados.copy()
 
-pronosticos_all = supabase_client.table('Pronosticos').select("id,Race No,Race,Place,User,Forecast").execute()
+pronosticos_all = supabase_client.table('Pronosticos').select("id,Race No,Race,Place,User,Forecast,Result").execute()
 pronosticos_all = pd.DataFrame(pronosticos_all.data)
 
 #función para actualizar data en supabase
