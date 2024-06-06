@@ -118,12 +118,6 @@ race_final = str(admin.data[0]['RaceNo2'])
 st.write(race_inicial)
 st.write(race_final)
 
-if st.button('Cargar pronosticos'):
-    # response = upload_to_supabase(edited_pronosticos)
-    upload_to_supabase(edited_pronosticos)
-    st.write(f'Tus pronosticos han sido actualizados correctamente, recuerda que los puedes editar hasta el : {hora_limite}')
-
-
 
 #función para actualizar data en supabase
 def upload_to_supabase(dataframe: pd.DataFrame):
