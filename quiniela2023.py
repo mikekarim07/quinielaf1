@@ -114,7 +114,7 @@ drivers = drivers['driverName']
 carreras = supabase_client.table('Pronosticos').select("id,Race No").execute()
 carreras = pd.DataFrame(carreras.data)
 carreras = carreras['Race No'].unique()
-carreras = carreras['Race No'].astype(str)
+carreras['Race No'] = carreras['Race No'].astype(str)
 st.write(carreras)
 
 resultados = supabase_client.table('Resultados').select("id,Race No,Race,Place,Result").execute()
