@@ -185,7 +185,7 @@ if usuario_activo != "Seleccionar":
                     
                 #     upload_admin(edited_admin)
                 st.write('La configuración de las carreras ha sido cargado')
-                resultados = supabase_client.table('Resultados').select("id,Race No,Race,Place,Result").eq("User", usuario_activo).neq("Place", "Top 3").neq("Place", "Top 5").order('id', desc=False).execute()
+                resultados = supabase_client.table('Resultados').select("id,Race No,Race,Place,Result").execute()
                 
 
     
