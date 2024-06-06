@@ -172,7 +172,7 @@ if usuario_activo != "Seleccionar":
                     # response = upload_to_supabase(edited_pronosticos)
                     upload_to_supabase(edited_pronosticos)
                     st.write(f'Tus pronosticos han sido actualizados correctamente, recuerda que los puedes editar hasta el : {hora_limite}')
-            if usuario_activo == "Mike":
+            # if usuario_activo == "Mike":
                 
                 # edited_admin = st.data_editor(admin, column_config={
                 #     "RaceNo1": st.column_config.TextColumn("RaceNo1")},hide_index=True,)
