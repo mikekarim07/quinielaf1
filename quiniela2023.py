@@ -103,8 +103,9 @@ if usuario_activo != "Seleccionar":
                     data, count = supabase_client.table('admin_control').update({'RaceNo': race_final_update}).eq('id', 2).execute()
                     st.sidebar.write('La configuración de las carreras ha sido cargado')
 
-                st.write('resultados')
+                # st.write('resultados')
                 resultados = resultados[(resultados['Race No'] >= race_inicial) & (resultados['Race No'] <= race_final)]
+                st.write('resultados')
                 edited_resultados = st.data_editor(pronosticos, column_config={
                     "Result": st.column_config.SelectboxColumn(options=drivers)
                 }, disabled=["Race No", "Race", "Place", "id"], hide_index=True)
