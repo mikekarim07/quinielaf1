@@ -107,8 +107,8 @@ if usuario_activo != "Seleccionar":
                 race_inicial_update = st.sidebar.number_input("Ingresa la carrera inicial", step=1)
                 race_final_update = st.sidebar.number_input("Ingresa la carrera Final", step=1)
                 if st.sidebar.button('Actualizar Race Filter'):
-                    data, count = supabase.table('admin_control').update({'RaceNo': race_inicial_update}).eq('id', 1).execute()
-                    data, count = supabase.table('admin_control').update({'RaceNo': race_final_update}).eq('id', 1).execute()
+                    data, count = supabase_client.table('admin_control').update({'RaceNo': race_inicial_update}).eq('id', 1).execute()
+                    data, count = supabase_client.table('admin_control').update({'RaceNo': race_final_update}).eq('id', 2).execute()
                     st.sidebar.write('La configuración de las carreras ha sido cargado')
                 
                 # edited_admin = st.data_editor(admin_tbl, column_config={
