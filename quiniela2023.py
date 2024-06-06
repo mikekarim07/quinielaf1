@@ -143,7 +143,9 @@ def puntos(row):
             return 1
         else:
             return 0
-    pronosticos_all['Puntos'] = pronosticos_all.apply(puntos, axis=1)
+
+pronosticos_all['Puntos'] = pronosticos_all.apply(puntos, axis=1)
+
 st.dataframe(pronosticos_all)
 
 
