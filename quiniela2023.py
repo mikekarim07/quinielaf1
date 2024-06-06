@@ -178,13 +178,13 @@ if usuario_activo != "Seleccionar":
                     upload_to_supabase(edited_pronosticos)
                     st.write(f'Tus pronosticos han sido actualizados correctamente, recuerda que los puedes editar hasta el : {hora_limite}')
             if usuario_activo == "Mike":
-                edited_admin = st.data_editor(admin, column_config={
-                    "RaceNo": st.column_config.SelectboxColumn(options=carreras)
-                }, disabled=["User", "id", "descripcion"], hide_index=True)
-                if st.button('Cargar Carreras'):
+                # edited_admin = st.data_editor(admin, column_config={
+                #     "RaceNo": st.column_config.SelectboxColumn(options=carreras)
+                # }, disabled=["User", "id", "descripcion"], hide_index=True)
+                # if st.button('Cargar Carreras'):
                     
-                    upload_admin(edited_admin)
-                    st.write('La configuración de las carreras ha sido cargado')
+                #     upload_admin(edited_admin)
+                st.write('La configuración de las carreras ha sido cargado')
                 resultados = supabase_client.table('Resultados').select("id,Race No,Race,Place,Result").eq("User", usuario_activo).neq("Place", "Top 3").neq("Place", "Top 5").order('id', desc=False).execute()
                 
 
