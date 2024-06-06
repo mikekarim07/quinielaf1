@@ -111,6 +111,25 @@ drivers = pd.DataFrame(drivers.data)
 drivers = drivers.sort_values(by='driverId')
 drivers = drivers['driverName']
 
+admin = supabase_client.table('admin_control').select("*").execute()
+admin = pd.DataFrame(admin.data)
+race_inicial = str(admin.data[0]['RaceNo1'])
+race_final = str(admin.data[0]['RaceNo2'])
+st.write(race_inicial)
+st.write(race_final)
+
+
+pronosticos = pronosticos[(pronosticos['Race No'] == 11) | (pronosticos['Race No'] == 12)]
+edited_pronosticos = st.data_editor(pronosticos, column_config={
+    "Forecast": st.column_config.SelectboxColumn(options=drivers)
+}, disabled=["Race No", "Race", "Place", "Fecha Carrera", "User", "Result", "id"], hide_index=True)
+if st.button('Cargar pronosticos'):
+    # response = upload_to_supabase(edited_pronosticos)
+    upload_to_supabase(edited_pronosticos)
+    st.write(f'Tus pronosticos han sido actualizados correctamente, recuerda que los puedes editar hasta el : {hora_limite}')
+
+
+
 #función para actualizar data en supabase
 def upload_to_supabase(dataframe: pd.DataFrame):
     data = dataframe.to_dict(orient="records")
@@ -155,8 +174,9 @@ if usuario_activo != "Seleccionar":
                     # response = upload_to_supabase(edited_pronosticos)
                     upload_to_supabase(edited_pronosticos)
                     st.write(f'Tus pronosticos han sido actualizados correctamente, recuerda que los puedes editar hasta el : {hora_limite}')
-
-
+            # if usuario_activo == "Mike":
+            #     resultados = supabase_client.table('Resultados').select("id,Race No,Race,Place,Result").eq("User", usuario_activo).neq("Place", "Top 3").neq("Place", "Top 5").order('id', desc=False).execute()
+                
 
     
     else:
