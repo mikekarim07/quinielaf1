@@ -130,7 +130,20 @@ pronosticos_all['key1'] = pronosticos_all['Race'] + pronosticos_all['Place']
 st.dataframe(pronosticos_all)
 resultados_all['key1'] = resultados_all['Race'] + resultados_all['Place']
 pronosticos_all = pronosticos_all.merge(resultados_all, left_on="key1", right_on='key1', how='left', suffixes=('', '_Results'))
-
+def puntos(row):
+        if row['Place'].startswith("1st") and (row['Forecast'] == row['Result']):
+            return 5
+        elif row['Place'].startswith("2nd") and (row['Forecast'] == row['Result']):
+            return 4
+        elif row['Place'].startswith("3rd") and (row['Forecast'] == row['Result']):
+            return 3
+        elif row['Place'].startswith("4th") and (row['Forecast'] == row['Result']):
+            return 2
+        elif row['Place'].startswith("5th") and (row['Forecast'] == row['Result']):
+            return 1
+        else:
+            return 0
+    pronosticos_all['Puntos'] = pronosticos_all.apply(puntos, axis=1)
 st.dataframe(pronosticos_all)
 
 
