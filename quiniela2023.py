@@ -1,82 +1,3 @@
-# import streamlit as st
-# import pandas as pd
-# import os
-# from supabase import create_client, Client
-# import json
-# from datetime import datetime
-# # import datetime
-# import time
-# import pytz
-# from streamlit_gsheets import GSheetsConnection
-
-# st.set_page_config(page_title="2024 F1 Fantasy", page_icon="🏆", layout="wide")
-
-# st.image("https://www.formula1.com/etc/designs/fom-website/images/f1-tv-logo.svg", width=120) #https://www.formula1.com/etc/designs/fom-website/images/f1_logo.svg
-# st.header('2024 - F1 Fantasy')
-# st.subheader('4ta Temporada 🏎')
-
-# current_time = datetime.now()
-# year = '2024'
-# month = '5'
-# day = '17'
-# hora = '5'
-# minuto = '0'
-# hora_limite = datetime.strptime(str(year) + '-' + str(month) + '-' + str(day) + ' ' + hora + ':' + minuto, '%Y-%m-%d %H:%M')
-
-# tab1, tab2 = st.tabs(["Resultados", "Pronosticos"])
-# usuarios = pd.DataFrame({'Usuario': ['Seleccionar', 'Alex', 'Gerry', 'Giorgio', 'Mike']})
-# usuario_activo = st.selectbox('Usuario', usuarios)
-
-
-# #inicio de app
-# #credenciales de supabase
-# url = 'https://uehrgoqjfbdbkkyumtpw.supabase.co'
-# key = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InVlaHJnb3FqZmJkYmtreXVtdHB3Iiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTcwOTA3MDE1MywiZXhwIjoyMDI0NjQ2MTUzfQ.KIIsWOhJx7sPYYP6Wdvdq6S4vPJ8vrSrZbs-vG6kBWw'
-# supabase_client = create_client(url, key)
-
-# #extraer la tabla de drivers
-# drivers = supabase_client.table('drivers').select("*").execute()
-# drivers = pd.DataFrame(drivers.data)
-# drivers = drivers.sort_values(by='driverId')
-# drivers = drivers['driverName']
-
-# #extraer la tabla de users
-# users = supabase_client.table('users').select("*").eq("user", usuario_activo).execute()
-
-# user_id = str(users.data[0]['id'])
-# user_pswd = users.data[0]['password']
-# # st.write(user_id)
-# # st.write(user_pswd)
-
-# if usuario_activo is not "Seleccionar" and user_pswd is None:
-#     st.caption("Registra tu password para ingresar tus pronosticos")
-#     new = st.text_input("Password")
-#     st.button("Reset", type="primary")
-#     if st.button("Registrar Password"):
-#         st.write("Tu password ha sido registrado, para continuar selecciona un usuario diferente y posteriormente vuelve a seleccionar tu usuario para que se actualice la información")
-#         supabase_client.table('users').update({"password": new}).eq("id", user_id).execute()
-
-# if usuario_activo is not "Seleccionar" and user_pswd is not None:
-#     pronosticos = supabase_client.table('Pronosticos').select("*").eq("User", usuario_activo).execute()
-#     pronosticos = pd.DataFrame(pronosticos.data)
-#     pronosticos = pronosticos[(pronosticos['Race No'] == 10) | (pronosticos['Race No'] == 11)]
-#     edited_pronosticos = st.data_editor(pronosticos, column_config={"Forecast": st.column_config.SelectboxColumn(options=["Max Verstappen","Sergio Perez","Charles Leclerc","Carlos Sainz","George Russell","Lewis Hamilton","Esteban Ocon","Pierre Gasly","Oscar Piastri","Lando Norris","Valteri Bottas","Zhou Guanyu","Lance Stroll","Fernando Alonso","Kevin Magnusen","Nico Hulkenberg","Daniel Ricciardo","Yuki Tsunoda"])}, disabled=["Race", "Place", "Fecha Carrera", "User"], hide_index=True)
-
-#     def actualizar_datos(df):
-#         for index, row in df.iterrows():
-#             response = supabase.table("Pronosticos").update({
-#                 "Forecast": row["Forecast"],
-#                 }).eq("id", row["id"]).execute()
-#         return response
-#     if st.button("Actualizar Datos"):
-#         response = actualizar_datos(edited_pronosticos)
-#         if response.status_code == 200:
-#             st.success("Datos actualizados correctamente")
-#         else:
-#             st.error("Hubo un error al actualizar los datos")
-
-    
-# prueba codigo gpt
 import streamlit as st
 import pandas as pd
 from supabase import create_client, Client
@@ -114,20 +35,18 @@ drivers = drivers['driverName']
 carreras = supabase_client.table('Pronosticos').select("id,Race No").execute()
 carreras = pd.DataFrame(carreras.data)
 carreras = carreras['Race No'].unique()
-carreras['Race No'] = carreras['Race No'].astype(str)
 st.write(carreras)
 
 resultados = supabase_client.table('Resultados').select("id,Race No,Race,Place,Result").execute()
 resultados = pd.DataFrame(resultados.data)
 st.write(resultados)
 
-
 admin = supabase_client.table('admin_control').select("*").execute()
 race_inicial = str(admin.data[0]['RaceNo'])
 race_final = str(admin.data[1]['RaceNo'])
 st.write(race_inicial)
 st.write(race_final)
-admin_tbl = pd.DataFrame(admin.data)
+
 
 #función para actualizar data en supabase
 def upload_to_supabase(dataframe: pd.DataFrame):
@@ -184,8 +103,18 @@ if usuario_activo != "Seleccionar":
                     upload_to_supabase(edited_pronosticos)
                     st.write(f'Tus pronosticos han sido actualizados correctamente, recuerda que los puedes editar hasta el : {hora_limite}')
             if usuario_activo == "Mike":
-                edited_admin = st.data_editor(admin_tbl, column_config={
-                    "RaceNo": st.column_config.SelectboxColumn(options=carreras)}, disabled=["User", "id", "descripcion"], hide_index=True)
+                # Open a data editor for 'admin_tbl' and save the edited table to 'edited_admin'
+                edited_admin = st.data_editor(
+                    admin_tbl, 
+                    column_config={
+                        # Configure 'RaceNo' column to use a select box with options from 'carreras'
+                        "RaceNo": st.column_config.SelectboxColumn(options=carreras)
+                    }, 
+                    # Disable editing for 'User', 'id', and 'descripcion' columns
+                    disabled=["User", "id", "descripcion"], 
+                    # Hide the index column
+                    hide_index=True
+                )
                 # if st.button('Cargar Carreras'):
                     
                 #     upload_admin(edited_admin)
