@@ -96,7 +96,7 @@ hora = '11'
 minuto = '30'
 hora_limite = datetime.strptime(f"{year}-{month}-{day} {hora}:{minuto}", '%Y-%m-%d %H:%M')
 
-
+tab1, tab2 = st.tabs(["Resultados", "Pronosticos"])
 usuarios = pd.DataFrame({'Usuario': ['Seleccionar', 'Alex', 'Gerry', 'Giorgio', 'Mike']})
 usuario_activo = st.selectbox('Usuario', usuarios['Usuario'])
 
@@ -122,7 +122,7 @@ def upload_to_supabase(dataframe: pd.DataFrame):
         return e
 
 # Extraer la tabla de users
-tab1, tab2 = st.tabs(["Resultados", "Pronosticos"])
+
 if usuario_activo != "Seleccionar":
     users = supabase_client.table('users').select("*").eq("user", usuario_activo).execute()
     if users.data:
