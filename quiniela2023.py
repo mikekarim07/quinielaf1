@@ -118,11 +118,6 @@ race_final = str(admin.data[0]['RaceNo2'])
 st.write(race_inicial)
 st.write(race_final)
 
-
-pronosticos = pronosticos[(pronosticos['Race No'] == 11) | (pronosticos['Race No'] == 12)]
-edited_pronosticos = st.data_editor(pronosticos, column_config={
-    "Forecast": st.column_config.SelectboxColumn(options=drivers)
-}, disabled=["Race No", "Race", "Place", "Fecha Carrera", "User", "Result", "id"], hide_index=True)
 if st.button('Cargar pronosticos'):
     # response = upload_to_supabase(edited_pronosticos)
     upload_to_supabase(edited_pronosticos)
