@@ -41,6 +41,10 @@ admin_tbl = pd.DataFrame(admin.data)
 
 resultados = supabase_client.table('Resultados').select("id,Race No,Race,Place,Result").execute()
 resultados = pd.DataFrame(resultados.data)
+resultados_all = resultados.copy()
+
+pronosticos_all = supabase_client.table('Pronosticos').select("id,Race No,Race,Place,User,Forecast").execute()
+pronosticos_all = pd.DataFrame(pronosticos_all.data)
 
 #función para actualizar data en supabase
 def upload_forecast(dataframe: pd.DataFrame):
@@ -122,10 +126,10 @@ if usuario_activo != "Seleccionar":
         st.error("Usuario no encontrado.")
 
 
-pronosticos['key1'] = pronosticos['Race'] + pronosticos['Place']
-st.dataframe(pronosticos)
-resultados['key1'] = resultados['Race'] + resultados['Place']
-st.dataframe(resultados)
+pronosticos_all['key1'] = pronosticos_all['Race'] + pronosticos_all['Place']
+st.dataframe(pronosticos_all)
+resultados_all['key1'] = resultados_all['Race'] + resultados_all['Place']
+st.dataframe(resultados_all)
 
 
 
