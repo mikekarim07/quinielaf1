@@ -148,19 +148,34 @@ if usuario_activo != "Seleccionar":
                 pronosticos = pd.DataFrame(pronosticos.data)
                 # pronosticos = pronosticos.sort_values(by='id')
                 pronosticos = pronosticos[(pronosticos['Race No'] == 11) | (pronosticos['Race No'] == 12)]
-                edited_pronosticos = st.data_editor(pronosticos, column_config={
-                    "Forecast": st.column_config.SelectboxColumn(options=drivers)
-                }, disabled=["Race No", "Race", "Place", "Fecha Carrera", "User", "Result", "id"], hide_index=True)
-                if st.button('Cargar pronosticos'):
-                    # response = upload_to_supabase(edited_pronosticos)
-                    upload_to_supabase(edited_pronosticos)
-                    st.write(f'Tus pronosticos han sido actualizados correctamente, recuerda que los puedes editar hasta el : {hora_limite}')
+                # edited_pronosticos = st.data_editor(pronosticos, column_config={
+                #     "Forecast": st.column_config.SelectboxColumn(options=drivers)
+                # }, disabled=["Race No", "Race", "Place", "Fecha Carrera", "User", "Result", "id"], hide_index=True)
+                # if st.button('Cargar pronosticos'):
+                #     # response = upload_to_supabase(edited_pronosticos)
+                #     upload_to_supabase(edited_pronosticos)
+                #     st.write(f'Tus pronosticos han sido actualizados correctamente, recuerda que los puedes editar hasta el : {hora_limite}')
 
 
 
     
     else:
         st.error("Usuario no encontrado.")
+
+
+with tab1:
+    edited_pronosticos = st.data_editor(pronosticos, column_config={"Forecast": st.column_config.SelectboxColumn(options=drivers)}, disabled=["Race No", "Race", "Place", "Fecha Carrera", "User", "Result", "id"], hide_index=True)
+    if st.button('Cargar pronosticos'):
+    # response = upload_to_supabase(edited_pronosticos)
+        upload_to_supabase(edited_pronosticos)
+        st.write(f'Tus pronosticos han sido actualizados correctamente, recuerda que los puedes editar hasta el : {hora_limite}')
+
+
+
+
+
+
+
 
 
 # fin prueba codigo gpt
