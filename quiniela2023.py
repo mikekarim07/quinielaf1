@@ -146,7 +146,7 @@ if usuario_activo != "Seleccionar":
                 pronosticos = supabase_client.table('Pronosticos').select("id,Race No,Race,Place,User,Forecast").eq("User", usuario_activo).neq("Place", "Top 3").neq("Place", "Top 5").order('id', desc=False).execute()
                 pronosticos = pd.DataFrame(pronosticos.data)
                 # pronosticos = pronosticos.sort_values(by='id')
-                pronosticos = pronosticos[(pronosticos['Race No'] == 10) | (pronosticos['Race No'] == 10)]
+                pronosticos = pronosticos[(pronosticos['Race No'] == 11) | (pronosticos['Race No'] == 12)]
                 edited_pronosticos = st.data_editor(pronosticos, column_config={
                     "Forecast": st.column_config.SelectboxColumn(options=drivers)
                 }, disabled=["Race No", "Race", "Place", "Fecha Carrera", "User", "Result", "id"], hide_index=True)
