@@ -90,10 +90,10 @@ st.subheader('4ta Temporada 🏎')
 
 current_time = datetime.now()
 year = '2024'
-month = '5'
-day = '17'
-hora = '5'
-minuto = '0'
+month = '6'
+day = '7'
+hora = '11'
+minuto = '30'
 hora_limite = datetime.strptime(f"{year}-{month}-{day} {hora}:{minuto}", '%Y-%m-%d %H:%M')
 
 tab1, tab2 = st.tabs(["Resultados", "Pronosticos"])
