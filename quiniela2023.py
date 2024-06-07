@@ -146,7 +146,7 @@ def puntos(row):
 
 pronosticos_all['Puntos'] = pronosticos_all.apply(puntos, axis=1)
 
-st.dataframe(pronosticos_all)
+# st.dataframe(pronosticos_all)
 
 
 
