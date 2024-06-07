@@ -17,7 +17,7 @@ hora = '22'
 minuto = '48'
 hora_limite = datetime.strptime(f"{year}-{month}-{day} {hora}:{minuto}", '%Y-%m-%d %H:%M')
 
-
+st.write(current_time)
 if current_time < hora_limite:
     st.write('ok')
 
