@@ -53,8 +53,8 @@ pronosticos_all = pronosticos_all[((pronosticos_all['Race No'] >= race_inicial) 
 pronosticos_all = pronosticos_all.sort_values(by='id')
 # pronosticos_all_pivot = pronosticos_all.pivot(index=None, columns='User', values='Forecast')
 
-# if current_time > hora_limite:
-#     st.dataframe(pronosticos_all)
+if current_time > hora_limite:
+    st.dataframe(pronosticos_all)
 
 #función para actualizar data en supabase
 def upload_forecast(dataframe: pd.DataFrame):
@@ -97,8 +97,8 @@ if usuario_activo != "Seleccionar":
 
         else:
             current_password = st.sidebar.text_input("Ingresa tu Password", type="password")
-            # if current_password == user_pswd and current_time < hora_limite:
-            if current_password == user_pswd:
+            if current_password == user_pswd and current_time < hora_limite:
+            # if current_password == user_pswd:
                 pronosticos = supabase_client.table('Pronosticos').select("id,Race No,Race,Place,User,Forecast").eq("User", usuario_activo).neq("Place", "Top 3").neq("Place", "Top 5").order('id', desc=False).execute()
                 pronosticos = pd.DataFrame(pronosticos.data)
                 pronosticos = pronosticos.sort_values(by='id')
