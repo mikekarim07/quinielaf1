@@ -18,8 +18,7 @@ minuto = '30'
 hora_limite = datetime.strptime(f"{year}-{month}-{day} {hora}:{minuto}", '%Y-%m-%d %H:%M')
 
 st.write(current_time)
-if current_time < hora_limite:
-    st.write('ok')
+
 
 
 tab1, tab2 = st.tabs(["Pronosticos", "Resultados"])
@@ -54,7 +53,7 @@ pronosticos_all = pronosticos_all[((pronosticos_all['Race No'] >= race_inicial) 
 pronosticos_all = pronosticos_all.sort_values(by='id')
 # pronosticos_all_pivot = pronosticos_all.pivot(index=None, columns='User', values='Forecast')
 
-if current_time < hora_limite:
+if current_time > hora_limite:
     st.dataframe(pronosticos_all)
 
 #función para actualizar data en supabase
