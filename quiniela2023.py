@@ -17,6 +17,11 @@ hora = '11'
 minuto = '30'
 hora_limite = datetime.strptime(f"{year}-{month}-{day} {hora}:{minuto}", '%Y-%m-%d %H:%M')
 
+
+if current_time < hora_limite:
+    st.write('ok')
+
+
 tab1, tab2 = st.tabs(["Pronosticos", "Resultados"])
 usuarios = pd.DataFrame({'Usuario': ['Seleccionar', 'Alex', 'Gerry', 'Giorgio', 'Mike']})
 usuario_activo = st.sidebar.selectbox('Usuario', usuarios['Usuario'])
