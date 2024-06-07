@@ -51,10 +51,10 @@ resultados_all = resultados.copy()
 pronosticos_all = supabase_client.table('Pronosticos').select("id,Race No,Race,Place,User,Forecast,Result").execute()
 pronosticos_all = pd.DataFrame(pronosticos_all.data)
 pronosticos_all = pronosticos_all[(pronosticos_all['Race No'] >= race_inicial) & (pronosticos_all['Race No'] <= race_final)]
-pronosticos_all_pivot = pronosticos_all.pivot(index=None, columns='User', values='Forecast')
+# pronosticos_all_pivot = pronosticos_all.pivot(index=None, columns='User', values='Forecast')
 
 if current_time < hora_limite:
-    st.dataframe(pronosticos_all_pivot)
+    st.dataframe(pronosticos_all)
 
 #función para actualizar data en supabase
 def upload_forecast(dataframe: pd.DataFrame):
