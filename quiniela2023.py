@@ -14,7 +14,7 @@ year = '2024'
 month = '6'
 day = '7'
 hora = '17'
-minuto = '30'
+minuto = '30' 
 hora_limite = datetime.strptime(f"{year}-{month}-{day} {hora}:{minuto}", '%Y-%m-%d %H:%M')
 
 st.write(current_time)
