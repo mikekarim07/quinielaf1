@@ -3,3 +3,4 @@ supabase
 st-gsheets-connection
 datetime
 pandas
+numpy
