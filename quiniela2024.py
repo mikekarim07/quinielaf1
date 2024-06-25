@@ -12,9 +12,9 @@ st.subheader('4ta Temporada 🏎')
 current_time = datetime.now()
 year = '2024'
 month = '6'
-day = '7'
-hora = '17'
-minuto = '30' 
+day = '28'
+hora = '5'
+minuto = '00' 
 hora_limite = datetime.strptime(f"{year}-{month}-{day} {hora}:{minuto}", '%Y-%m-%d %H:%M')
 
 st.write(current_time)
