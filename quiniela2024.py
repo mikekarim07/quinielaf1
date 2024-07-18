@@ -2,29 +2,29 @@ import streamlit as st
 # import pandas as pd
 from supabase import create_client, Client
 from datetime import datetime
-import pandas as pd
+
 
 st.set_page_config(page_title="2024 F1 Fantasy", page_icon="🏆", layout="wide")
 
-# st.image("https://www.formula1.com/etc/designs/fom-website/images/f1-tv-logo.svg", width=120)  # https://www.formula1.com/etc/designs/fom-website/images/f1_logo.svg
-# st.header('2024 - F1 Fantasy')
-# st.subheader('4ta Temporada 🏎')
+st.image("https://www.formula1.com/etc/designs/fom-website/images/f1-tv-logo.svg", width=120)  # https://www.formula1.com/etc/designs/fom-website/images/f1_logo.svg
+st.header('2024 - F1 Fantasy')
+st.subheader('4ta Temporada 🏎')
 
-# current_time = datetime.now()
-# year = '2024'
-# month = '6'
-# day = '28'
-# hora = '5'
-# minuto = '00' 
-# hora_limite = datetime.strptime(f"{year}-{month}-{day} {hora}:{minuto}", '%Y-%m-%d %H:%M')
+current_time = datetime.now()
+year = '2024'
+month = '6'
+day = '28'
+hora = '5'
+minuto = '00' 
+hora_limite = datetime.strptime(f"{year}-{month}-{day} {hora}:{minuto}", '%Y-%m-%d %H:%M')
 
-# st.write(current_time)
+st.write(current_time)
 
 
 
-# tab1, tab2 = st.tabs(["Pronosticos", "Resultados"])
-# usuarios = pd.DataFrame({'Usuario': ['Seleccionar', 'Alex', 'Gerry', 'Giorgio', 'Mike']})
-# usuario_activo = st.sidebar.selectbox('Usuario', usuarios['Usuario'])
+tab1, tab2 = st.tabs(["Pronosticos", "Resultados"])
+usuarios = pd.DataFrame({'Usuario': ['Seleccionar', 'Alex', 'Gerry', 'Giorgio', 'Mike']})
+usuario_activo = st.sidebar.selectbox('Usuario', usuarios['Usuario'])
 
 # # Credenciales de Supabase
 # url = st.secrets["url"]
